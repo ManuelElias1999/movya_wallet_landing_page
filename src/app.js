@@ -34,7 +34,7 @@ document.addEventListener("click", (e) => {
   if (!e.target.closest(".site-header")) closeMenu();
 });
 window.addEventListener("resize", () => {
-  if (window.innerWidth > 900) closeMenu();
+  if (window.innerWidth > 1000) closeMenu();
 });
 
 const copy = JSON.parse(document.querySelector("#demo-copy").textContent);

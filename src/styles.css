@@ -3752,3 +3752,1542 @@ details[open] summary .icon {
     transform: none;
   }
 }
+
+/* Larger type and a wider canvas for comfortable reading on desktop and mobile. */
+.container {
+  max-width: 1440px;
+  width: calc(100% - 96px);
+}
+.section {
+  padding-block: 112px;
+}
+h2 {
+  font-size: clamp(40px, 4vw, 58px);
+  letter-spacing: -2px;
+  line-height: 1.17;
+}
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 1.7px;
+}
+.hero {
+  grid-template-columns: 1.08fr 1fr;
+  gap: 36px;
+  min-height: 810px;
+  padding-top: 50px;
+  padding-bottom: 64px;
+}
+h1 {
+  font-size: clamp(60px, 5.6vw, 86px);
+  letter-spacing: -4px;
+  line-height: 1.12;
+}
+.hero .eyebrow {
+  font-size: 12px;
+  letter-spacing: 1.35px;
+  white-space: normal;
+}
+.hero-intro {
+  font-size: 20px;
+  max-width: 570px;
+  line-height: 1.85;
+  margin-top: 30px;
+}
+.button {
+  font-size: 17px;
+  min-height: 60px;
+  padding: 17px 27px;
+  border-radius: 15px;
+}
+.text-link {
+  font-size: 16px;
+  gap: 12px;
+}
+.hero-actions {
+  gap: 28px;
+  margin-top: 34px;
+}
+.stage-label {
+  font-size: 13px;
+  margin-top: 22px;
+}
+.hero-tags {
+  gap: 26px;
+  margin-top: 32px;
+}
+.hero-tags > span {
+  font-size: 13px;
+  gap: 8px;
+}
+.hero-tags .icon {
+  width: 17px;
+  height: 17px;
+}
+.hero-visual {
+  height: 710px;
+}
+.phone {
+  --phone-scale: 1.12;
+  transform: rotate(-5deg) scale(var(--phone-scale));
+  transform-origin: center;
+}
+.floating-chat {
+  width: 310px;
+  padding: 19px;
+  bottom: 90px;
+  left: -10px;
+  border-radius: 22px;
+}
+.float-identity strong {
+  font-size: 15px;
+}
+.float-identity small {
+  font-size: 10px;
+}
+.ai-pill {
+  font-size: 11px;
+  padding: 4px 7px;
+}
+.mini-user {
+  font-size: 12px;
+  padding: 12px 14px;
+  margin-top: 17px;
+}
+.mini-reply {
+  font-size: 11px;
+  padding: 10px;
+  gap: 8px;
+}
+.mini-reply > .icon,
+.mini-check .icon {
+  width: 16px;
+  height: 16px;
+}
+.visual-caption {
+  font-size: 11px;
+  bottom: 0;
+}
+.stellar-inner {
+  padding-block: 33px;
+  gap: 40px;
+}
+.stellar-inner > img {
+  width: 155px;
+  max-height: 43px;
+}
+.stellar-inner p {
+  font-size: 17px;
+}
+.stellar-inner span {
+  font-size: 14px;
+}
+.section-heading {
+  max-width: 720px;
+}
+.section-heading > p {
+  max-width: 650px;
+  font-size: 18px;
+}
+.section-text {
+  font-size: 18px;
+  max-width: 540px;
+}
+.feature h3 {
+  font-size: 21px;
+}
+.feature p {
+  font-size: 16px;
+  line-height: 1.85;
+}
+.feature-icon {
+  width: 57px;
+  height: 57px;
+  border-radius: 17px;
+}
+.feature-icon .icon {
+  width: 27px;
+  height: 27px;
+}
+.feature-number {
+  font-size: 14px;
+}
+.human-copy h3 {
+  font-size: 39px;
+}
+.human-copy > p {
+  font-size: 17px;
+  max-width: 430px;
+}
+.human-copy .eyebrow {
+  font-size: 12px;
+}
+.inline-network {
+  font-size: 12px;
+}
+.human-panel {
+  padding: 54px 58px;
+}
+.contact-card {
+  width: 340px;
+  padding: 26px;
+}
+.contact-title {
+  font-size: 16px;
+}
+.contact-person strong {
+  font-size: 16px;
+}
+.contact-person small {
+  font-size: 11px;
+}
+.contact-cta {
+  font-size: 14px;
+  padding: 14px;
+}
+.contact-avatar {
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+}
+.assistant-chip {
+  font-size: 13px;
+  bottom: -2px;
+  padding: 12px 18px;
+}
+.demo-layout,
+.control-layout {
+  gap: 85px;
+}
+.demo-intro h2 {
+  font-size: 52px;
+}
+.steps h3 {
+  font-size: 19px;
+}
+.steps p {
+  font-size: 16px;
+  max-width: 430px;
+}
+.steps li {
+  gap: 20px;
+  padding-bottom: 33px;
+}
+.step-number {
+  width: 44px;
+  height: 44px;
+  font-size: 13px;
+}
+.steps li:not(:last-child):after {
+  left: 21px;
+  top: 50px;
+}
+.demo-chat-header {
+  padding: 22px 25px;
+}
+.demo-chat-header h3 {
+  font-size: 21px;
+}
+.demo-chat-header p {
+  font-size: 12px;
+  gap: 7px;
+}
+.reset-demo {
+  width: 40px;
+  height: 40px;
+}
+.reset-demo .icon {
+  width: 19px;
+  height: 19px;
+}
+.chat-stream {
+  height: 400px;
+  padding: 25px;
+}
+.chat-date {
+  font-size: 10px;
+}
+.message-name {
+  font-size: 12px;
+}
+.message-bubble {
+  font-size: 16px;
+  padding: 15px 17px;
+}
+.demo-suggestions {
+  padding: 0 24px 17px;
+  gap: 8px;
+}
+.demo-suggestions button {
+  font-size: 12px;
+  padding: 10px 12px;
+}
+.demo-suggestions .icon {
+  width: 14px;
+  height: 14px;
+}
+.demo-composer {
+  margin-inline: 24px;
+}
+.demo-composer input {
+  font-size: 14px;
+  padding: 12px 8px;
+}
+.demo-composer button {
+  width: 43px;
+  height: 43px;
+}
+.demo-notice {
+  font-size: 11px;
+  padding: 15px 22px;
+}
+.demo-review {
+  padding: 19px;
+}
+.demo-review h4 {
+  font-size: 17px;
+}
+.demo-review dl > div {
+  font-size: 14px;
+  margin-bottom: 11px;
+}
+.review-actions button {
+  font-size: 14px;
+  min-height: 45px;
+}
+.review-caption {
+  font-size: 11px;
+}
+.demo-success strong {
+  font-size: 18px;
+}
+.demo-success p {
+  font-size: 15px;
+}
+.demo-success small {
+  font-size: 11px;
+}
+.control-copy .section-text {
+  font-size: 18px;
+  max-width: 530px;
+}
+.control-points {
+  gap: 27px;
+}
+.control-points h3 {
+  font-size: 18px;
+}
+.control-points p {
+  font-size: 15px;
+  max-width: 440px;
+}
+.control-points > div > span {
+  width: 44px;
+  height: 44px;
+}
+.approval-card {
+  width: 350px;
+  padding: 32px;
+}
+.approval-card .eyebrow {
+  font-size: 10px;
+}
+.approval-card h3 {
+  font-size: 18px;
+}
+.approval-amount {
+  font-size: 42px;
+}
+.approval-amount span {
+  font-size: 16px;
+}
+.approval-person strong {
+  font-size: 15px;
+}
+.approval-person small {
+  font-size: 11px;
+}
+.approval-card > p {
+  font-size: 12px;
+}
+.approval-button {
+  font-size: 13px;
+  padding: 15px 11px;
+}
+.approval-caption {
+  font-size: 13px;
+  bottom: -15px;
+}
+.faq-section h2 {
+  font-size: 47px;
+}
+.faq-section .eyebrow {
+  font-size: 12px;
+}
+summary {
+  font-size: 18px;
+  padding: 25px 0;
+}
+.faq-answer {
+  font-size: 16px;
+  line-height: 1.85;
+}
+.whitelist-inner {
+  padding: 62px;
+  gap: 70px;
+}
+.whitelist-copy h2 {
+  font-size: 48px;
+}
+.whitelist-copy .eyebrow {
+  font-size: 12px;
+}
+.whitelist-copy > p {
+  font-size: 18px;
+  max-width: 490px;
+}
+.whitelist-card {
+  padding: 36px;
+}
+.whitelist-card h3 {
+  font-size: 29px;
+}
+.whitelist-card-intro {
+  font-size: 15px;
+  margin-top: 12px;
+}
+#whitelist-form > label:not(.whitelist-consent) {
+  font-size: 15px;
+}
+#whitelist-email {
+  font-size: 17px;
+  height: 58px;
+}
+.whitelist-consent {
+  font-size: 14px;
+  gap: 11px;
+  margin-top: 21px;
+}
+.whitelist-consent > input {
+  width: 19px;
+  height: 19px;
+  margin-top: 3px;
+}
+.whitelist-submit {
+  font-size: 16px;
+  min-height: 57px;
+  margin-top: 25px;
+}
+.whitelist-hint {
+  font-size: 12px;
+}
+.whitelist-privacy {
+  font-size: 12px;
+}
+.whitelist-status {
+  font-size: 14px;
+}
+.whitelist-success h4 {
+  font-size: 26px;
+}
+.whitelist-success p {
+  font-size: 16px;
+}
+.whitelist-mascot > span:not(.whitelist-spark):not(.movya-mascot) {
+  font-size: 16px;
+  max-width: 250px;
+}
+.whitelist-spark {
+  left: 119px;
+  top: 5px;
+  font-size: 27px;
+}
+.footer-line {
+  font-size: 15px;
+}
+.footer-links {
+  gap: 90px;
+}
+.footer-links h3 {
+  font-size: 15px;
+}
+.footer-links a {
+  font-size: 14px;
+  gap: 10px;
+}
+.footer-links .icon {
+  width: 17px;
+  height: 17px;
+}
+.footer-bottom {
+  font-size: 12px;
+  padding-block: 27px;
+}
+
+/* The wink is an HTML/CSS eyelid over the original logo, not a replacement logo. */
+.movya-mascot {
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+  width: var(--mascot-size, 64px);
+  height: var(--mascot-size, 64px);
+  line-height: 0;
+  vertical-align: middle;
+  transition: transform 0.25s ease;
+  isolation: isolate;
+}
+.movya-mascot img.movya-base {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: none;
+}
+.movya-eye {
+  position: absolute;
+  left: 59.375%;
+  top: 43.125%;
+  width: 11.25%;
+  height: 12.5%;
+  background: linear-gradient(#3a495a, #293543);
+  opacity: 0;
+  animation: movya-wink 6.4s 1s ease-in-out infinite;
+  pointer-events: none;
+  line-height: 0;
+}
+.movya-eye svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.movya-mascot:hover {
+  transform: rotate(-5deg);
+}
+.movya-mascot:hover .movya-eye,
+.brand:hover .movya-eye {
+  animation: none;
+  opacity: 1;
+}
+.site-header .brand:hover img.movya-base {
+  transform: none;
+}
+.brand {
+  gap: 11px;
+}
+.brand > span:not(.movya-mascot) {
+  font-size: 36px;
+}
+.brand .brand-wallet {
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-top: 7px;
+}
+.site-header .header-inner {
+  max-width: 1488px;
+  min-height: 90px;
+  padding-inline: 25px;
+  gap: 22px;
+}
+.site-header.is-scrolled .header-inner {
+  min-height: 78px;
+}
+.site-header .main-nav a {
+  font-size: 15px;
+  padding: 12px 17px;
+}
+.site-header .header-cta {
+  font-size: 15px;
+  min-height: 52px;
+  padding: 13px 20px;
+}
+.site-header .language-switch a {
+  font-size: 12px;
+  padding: 8px 10px;
+}
+.site-header .header-end {
+  gap: 18px;
+}
+.whitelist-mascot > .movya-mascot {
+  animation: mascot-nod 7s ease-in-out infinite;
+}
+@keyframes movya-wink {
+  0%,
+  74%,
+  87%,
+  100% {
+    opacity: 0;
+  }
+  77%,
+  84% {
+    opacity: 1;
+  }
+}
+@keyframes phone-drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg) scale(var(--phone-scale, 1));
+  }
+  50% {
+    transform: translateY(-9px) rotate(-3.5deg) scale(var(--phone-scale, 1));
+  }
+}
+@media (max-width: 1200px) {
+  .site-header .main-nav a {
+    font-size: 13px;
+    padding: 11px 13px;
+  }
+  .site-header .header-cta {
+    font-size: 13px;
+    padding: 12px 16px;
+  }
+  .site-header .header-end {
+    gap: 12px;
+  }
+  .brand > span:not(.movya-mascot) {
+    font-size: 31px;
+  }
+  .site-header .movya-mascot {
+    --mascot-size: 57px !important;
+  }
+  .site-header .header-inner {
+    gap: 15px;
+    padding-inline: 19px;
+  }
+  .hero {
+    gap: 26px;
+    min-height: 760px;
+  }
+  h1 {
+    font-size: clamp(50px, 5.5vw, 68px);
+    letter-spacing: -3px;
+  }
+  .hero-intro {
+    font-size: 18px;
+    max-width: 500px;
+  }
+  .hero-visual {
+    height: 665px;
+  }
+  .floating-chat {
+    width: 285px;
+    left: -18px;
+    bottom: 70px;
+  }
+  .hero .hero-actions {
+    gap: 20px;
+  }
+  .hero .button {
+    font-size: 15px;
+    padding: 15px 21px;
+  }
+  .hero .text-link {
+    font-size: 14px;
+  }
+  .hero-tags > span {
+    font-size: 11px;
+  }
+  .hero-tags {
+    gap: 18px;
+  }
+  .human-panel {
+    padding: 42px;
+  }
+  .human-copy h3 {
+    font-size: 34px;
+  }
+  .contact-card {
+    width: 290px;
+    padding: 22px;
+  }
+  .assistant-chip {
+    font-size: 11px;
+    bottom: 2px;
+    right: -15px;
+  }
+  .demo-layout,
+  .control-layout {
+    gap: 50px;
+  }
+  .demo-intro h2 {
+    font-size: 44px;
+  }
+  .steps h3 {
+    font-size: 17px;
+  }
+  .steps p {
+    font-size: 14px;
+  }
+  .message-bubble {
+    font-size: 15px;
+  }
+  .demo-chat-header h3 {
+    font-size: 19px;
+  }
+  .demo-chat-header p {
+    font-size: 10px;
+  }
+  .demo-composer input {
+    font-size: 12px;
+  }
+  .approval-card {
+    width: 310px;
+    padding: 26px;
+  }
+  .approval-art {
+    min-height: 450px;
+  }
+  .control-copy h2 {
+    font-size: 44px;
+  }
+  .control-copy .section-text {
+    font-size: 17px;
+  }
+  .faq-section {
+    gap: 55px;
+  }
+  .faq-section h2 {
+    font-size: 40px;
+  }
+  .whitelist-inner {
+    padding: 42px;
+    gap: 40px;
+  }
+  .whitelist-copy h2 {
+    font-size: 40px;
+  }
+  .whitelist-card {
+    padding: 28px;
+  }
+  .whitelist-copy > p {
+    font-size: 17px;
+  }
+}
+@media (max-width: 1000px) {
+  .container {
+    width: calc(100% - 56px);
+  }
+  .site-header .main-nav {
+    display: none;
+  }
+  .site-header .main-nav.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+  .site-header .menu-toggle {
+    display: grid;
+    place-items: center;
+    order: 3;
+    flex-shrink: 0;
+    margin-left: 0;
+  }
+  .site-header .header-end {
+    margin-left: auto;
+  }
+  .site-header .main-nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -1px;
+    right: -1px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    padding: 12px;
+    box-shadow: 0 16px 30px #0b234817;
+  }
+  .site-header .main-nav a {
+    font-size: 16px;
+    padding: 14px 17px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .site-header .main-nav .nav-whitelist {
+    display: flex;
+    background: var(--ice);
+    color: var(--blue);
+  }
+  .site-header .nav-whitelist .icon {
+    width: 18px;
+    height: 18px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+    min-height: 0;
+    padding-top: 48px;
+    gap: 30px;
+  }
+  .hero-copy {
+    text-align: center;
+  }
+  .hero .eyebrow {
+    justify-content: center;
+    font-size: 12px;
+  }
+  .hero h1 {
+    font-size: clamp(58px, 8vw, 76px);
+    letter-spacing: -3px;
+  }
+  .hero-intro {
+    max-width: 650px;
+    margin-inline: auto;
+    font-size: 20px;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .stage-label {
+    justify-content: center;
+    font-size: 13px;
+  }
+  .hero-tags {
+    justify-content: center;
+    flex-direction: row;
+  }
+  .hero-tags > span {
+    font-size: 13px;
+  }
+  .hero-visual {
+    max-width: 590px;
+    width: 100%;
+    margin-inline: auto;
+    height: 690px;
+  }
+  .floating-chat {
+    left: 5px;
+    bottom: 85px;
+  }
+  .hero-visual:before {
+    width: 470px;
+    height: 470px;
+  }
+  .visual-orbit {
+    width: 470px;
+    height: 470px;
+  }
+  .orbit-two {
+    width: 550px;
+    height: 550px;
+  }
+  .visual-caption {
+    right: 25px;
+    font-size: 11px;
+  }
+  .demo-layout {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    gap: 42px;
+  }
+  .demo-intro h2 {
+    font-size: 48px;
+  }
+  .demo-intro .section-text {
+    font-size: 19px;
+  }
+  .demo-intro .eyebrow {
+    font-size: 12px;
+  }
+  .steps h3 {
+    font-size: 20px;
+  }
+  .steps p {
+    font-size: 17px;
+    max-width: 550px;
+  }
+  .message-bubble {
+    font-size: 17px;
+  }
+  .demo-chat-header h3 {
+    font-size: 23px;
+  }
+  .demo-chat-header p {
+    font-size: 12px;
+  }
+  .demo-suggestions button {
+    font-size: 13px;
+  }
+  .demo-composer input {
+    font-size: 16px;
+  }
+  .demo-notice {
+    font-size: 12px;
+  }
+  .feature h3 {
+    font-size: 19px;
+  }
+  .feature p {
+    font-size: 15px;
+  }
+  .human-panel {
+    padding: 36px;
+    gap: 28px;
+  }
+  .human-copy h3 {
+    font-size: 32px;
+  }
+  .human-copy > p {
+    font-size: 16px;
+  }
+  .contact-card {
+    width: 270px;
+  }
+  .contact-title {
+    font-size: 14px;
+  }
+  .contact-person strong {
+    font-size: 14px;
+  }
+  .contact-person small {
+    font-size: 10px;
+  }
+  .assistant-chip {
+    font-size: 10px;
+  }
+  .control-layout {
+    gap: 35px;
+  }
+  .control-copy h2 {
+    font-size: 38px;
+  }
+  .control-copy .eyebrow {
+    font-size: 10px;
+  }
+  .control-points h3 {
+    font-size: 17px;
+  }
+  .control-points p {
+    font-size: 14px;
+  }
+  .approval-card {
+    width: 285px;
+    padding: 24px;
+  }
+  .approval-card h3 {
+    font-size: 16px;
+  }
+  .approval-person strong {
+    font-size: 14px;
+  }
+  .approval-button {
+    font-size: 11px;
+  }
+  .approval-caption {
+    font-size: 11px;
+  }
+  .faq-section h2 {
+    font-size: 36px;
+  }
+  .faq-section .eyebrow {
+    font-size: 10px;
+  }
+  .faq-section summary {
+    font-size: 17px;
+  }
+  .faq-answer {
+    font-size: 16px;
+  }
+  .whitelist-inner {
+    padding: 35px;
+    gap: 30px;
+  }
+  .whitelist-copy h2 {
+    font-size: 35px;
+  }
+  .whitelist-copy .eyebrow {
+    font-size: 10px;
+  }
+  .whitelist-copy > p {
+    font-size: 16px;
+  }
+  .whitelist-mascot > .movya-mascot {
+    --mascot-size: 110px !important;
+  }
+  .whitelist-mascot > span:not(.whitelist-spark):not(.movya-mascot) {
+    font-size: 13px;
+  }
+  .whitelist-card {
+    padding: 25px;
+  }
+  .whitelist-card h3 {
+    font-size: 26px;
+  }
+  .whitelist-card-intro {
+    font-size: 13px;
+  }
+  .whitelist-consent {
+    font-size: 12px;
+  }
+  .whitelist-submit {
+    font-size: 14px;
+  }
+  .whitelist-privacy,
+  .whitelist-hint {
+    font-size: 11px;
+  }
+  .whitelist-spark {
+    left: 93px;
+  }
+  .footer-links {
+    gap: 55px;
+  }
+}
+@media (max-width: 700px) {
+  .container {
+    width: calc(100% - 40px);
+  }
+  .section {
+    padding-block: 76px;
+  }
+  h2 {
+    font-size: 36px;
+    letter-spacing: -1.5px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.1px;
+  }
+  .site-header .header-inner {
+    min-height: 76px;
+    padding-inline: 13px;
+    gap: 9px;
+  }
+  .site-header.is-scrolled .header-inner {
+    min-height: 70px;
+  }
+  .site-header .movya-mascot {
+    --mascot-size: 50px !important;
+  }
+  .brand > span:not(.movya-mascot) {
+    font-size: 29px;
+  }
+  .brand .brand-wallet {
+    font-size: 8px;
+    letter-spacing: 3px;
+    margin-top: 6px;
+  }
+  .site-header .language-switch a {
+    font-size: 10px;
+    padding: 7px 8px;
+  }
+  .site-header .header-end {
+    gap: 0;
+  }
+  .site-header .header-cta {
+    display: none;
+  }
+  .site-header .menu-toggle {
+    width: 40px;
+    height: 40px;
+  }
+  .site-header .main-nav a {
+    font-size: 16px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .hero {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    gap: 24px;
+  }
+  .hero .eyebrow {
+    font-size: 10px;
+  }
+  .hero h1 {
+    font-size: clamp(42px, 8vw, 58px);
+    letter-spacing: -2.5px;
+  }
+  .hero-intro {
+    font-size: 17px;
+    line-height: 1.85;
+    margin-top: 24px;
+    max-width: 500px;
+  }
+  .hero .hero-actions {
+    gap: 18px;
+    margin-top: 26px;
+  }
+  .hero .button {
+    font-size: 15px;
+    min-height: 55px;
+    padding: 15px 19px;
+  }
+  .hero .text-link {
+    font-size: 13px;
+  }
+  .stage-label {
+    font-size: 11px;
+  }
+  .hero-tags {
+    gap: 18px;
+    margin-top: 23px;
+  }
+  .hero-tags > span {
+    font-size: 10px;
+  }
+  .hero-tags .icon {
+    width: 14px;
+    height: 14px;
+  }
+  .hero-visual {
+    height: 585px;
+    max-width: 440px;
+  }
+  .phone {
+    --phone-scale: 1.05;
+  }
+  .floating-chat {
+    width: 250px;
+    padding: 15px;
+    left: -3px;
+    bottom: 65px;
+  }
+  .float-identity .movya-mascot {
+    --mascot-size: 38px !important;
+  }
+  .float-identity strong {
+    font-size: 13px;
+  }
+  .float-identity small {
+    font-size: 9px;
+  }
+  .mini-user {
+    font-size: 10px;
+    padding: 11px;
+  }
+  .mini-reply {
+    font-size: 9px;
+    padding: 9px;
+  }
+  .ai-pill {
+    font-size: 9px;
+  }
+  .hero-visual:before {
+    width: 330px;
+    height: 330px;
+  }
+  .visual-orbit {
+    width: 345px;
+    height: 345px;
+  }
+  .orbit-two {
+    width: 380px;
+    height: 380px;
+  }
+  .visual-caption {
+    font-size: 9px;
+    right: 0;
+    bottom: 0;
+  }
+  .stellar-inner {
+    gap: 20px;
+    padding-block: 27px;
+  }
+  .stellar-inner > img {
+    width: 100px;
+    max-height: 34px;
+  }
+  .stellar-inner p {
+    font-size: 13px;
+  }
+  .stellar-inner span {
+    font-size: 12px;
+  }
+  .stellar-inner > div {
+    padding-left: 20px;
+  }
+  .section-heading > p {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .feature,
+  .feature + .feature {
+    padding-left: 68px;
+    padding-block: 26px;
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    top: 25px;
+  }
+  .feature h3 {
+    font-size: 19px;
+  }
+  .feature p {
+    font-size: 16px;
+  }
+  .human-panel {
+    padding: 30px 24px;
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .human-copy .eyebrow {
+    font-size: 10px;
+  }
+  .human-copy h3 {
+    font-size: 32px;
+  }
+  .human-copy > p {
+    font-size: 16px;
+  }
+  .inline-network {
+    font-size: 11px;
+  }
+  .contact-card {
+    width: 275px;
+    padding: 21px;
+  }
+  .human-art {
+    min-height: 285px;
+  }
+  .assistant-chip {
+    font-size: 10px;
+    padding: 10px 13px;
+    bottom: 0;
+  }
+  .demo-intro h2 {
+    font-size: 37px;
+  }
+  .demo-intro .section-text {
+    font-size: 17px;
+  }
+  .demo-intro .eyebrow {
+    font-size: 10px;
+  }
+  .steps h3 {
+    font-size: 17px;
+  }
+  .steps p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .steps li {
+    gap: 16px;
+    padding-bottom: 27px;
+  }
+  .step-number {
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+  }
+  .steps li:not(:last-child):after {
+    left: 18px;
+    top: 44px;
+  }
+  .demo-chat-header {
+    padding: 18px;
+    gap: 10px;
+  }
+  .demo-chat-header .movya-mascot {
+    --mascot-size: 48px !important;
+  }
+  .demo-chat-header h3 {
+    font-size: 19px;
+  }
+  .demo-chat-header p {
+    font-size: 10px;
+  }
+  .chat-stream {
+    padding: 20px;
+    height: 370px;
+  }
+  .chat-date {
+    font-size: 9px;
+  }
+  .message-name {
+    font-size: 11px;
+  }
+  .message-bubble {
+    font-size: 15px;
+    padding: 14px;
+  }
+  .demo-suggestions {
+    padding-inline: 17px;
+    gap: 7px;
+  }
+  .demo-suggestions button {
+    font-size: 11px;
+    padding: 10px;
+  }
+  .demo-composer {
+    margin-inline: 17px;
+  }
+  .demo-composer input {
+    font-size: 13px;
+    padding: 12px 6px;
+  }
+  .demo-composer button {
+    width: 39px;
+    height: 39px;
+  }
+  .demo-notice {
+    font-size: 10px;
+    padding: 13px 16px;
+  }
+  .demo-review {
+    padding: 15px;
+  }
+  .demo-review h4 {
+    font-size: 16px;
+  }
+  .demo-review dl > div {
+    font-size: 13px;
+  }
+  .review-actions button {
+    font-size: 13px;
+    padding: 11px 8px;
+  }
+  .review-caption {
+    font-size: 10px;
+  }
+  .control-layout {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .control-copy h2 {
+    font-size: 37px;
+  }
+  .control-copy .section-text {
+    font-size: 17px;
+  }
+  .control-copy .eyebrow {
+    font-size: 10px;
+  }
+  .control-points h3 {
+    font-size: 18px;
+  }
+  .control-points p {
+    font-size: 16px;
+  }
+  .approval-art {
+    min-height: 465px;
+  }
+  .approval-card {
+    width: 300px;
+    padding: 28px;
+  }
+  .approval-caption {
+    font-size: 12px;
+    bottom: -5px;
+  }
+  .faq-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .faq-section h2 {
+    font-size: 36px;
+  }
+  .faq-section .eyebrow {
+    font-size: 10px;
+  }
+  .faq-list summary {
+    font-size: 17px;
+    padding-block: 22px;
+  }
+  .faq-answer {
+    font-size: 16px;
+    padding-right: 10px;
+  }
+  .whitelist-section {
+    padding-bottom: 65px;
+  }
+  .whitelist-inner {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 30px;
+  }
+  .whitelist-copy h2 {
+    font-size: 35px;
+  }
+  .whitelist-copy .eyebrow {
+    font-size: 10px;
+  }
+  .whitelist-copy > p {
+    font-size: 17px;
+  }
+  .whitelist-card {
+    padding: 26px;
+  }
+  .whitelist-card h3 {
+    font-size: 27px;
+  }
+  .whitelist-card-intro {
+    font-size: 14px;
+  }
+  .whitelist-consent {
+    font-size: 13px;
+  }
+  .whitelist-submit {
+    font-size: 15px;
+  }
+  .whitelist-privacy,
+  .whitelist-hint {
+    font-size: 11px;
+  }
+  .whitelist-mascot > .movya-mascot {
+    --mascot-size: 115px !important;
+  }
+  .whitelist-mascot > span:not(.whitelist-spark):not(.movya-mascot) {
+    font-size: 14px;
+    max-width: 240px;
+  }
+  .whitelist-spark {
+    left: 96px;
+  }
+  .site-footer .brand .movya-mascot {
+    --mascot-size: 56px !important;
+  }
+  .footer-line {
+    font-size: 14px;
+  }
+  .footer-links h3 {
+    font-size: 15px;
+  }
+  .footer-links a {
+    font-size: 14px;
+  }
+  .footer-links {
+    gap: 45px;
+  }
+  .footer-bottom {
+    font-size: 11px;
+    gap: 17px;
+  }
+}
+@media (max-width: 370px) {
+  .container {
+    width: calc(100% - 32px);
+  }
+  .site-header .header-inner {
+    padding-inline: 10px;
+    gap: 7px;
+  }
+  .site-header .movya-mascot {
+    --mascot-size: 42px !important;
+  }
+  .site-header .brand > span:not(.movya-mascot) {
+    font-size: 25px;
+  }
+  .site-header .brand {
+    gap: 5px;
+  }
+  .site-header .language-switch a {
+    font-size: 9px;
+    padding: 6px;
+  }
+  .site-header .menu-toggle {
+    width: 35px;
+    height: 35px;
+  }
+  .hero h1 {
+    font-size: 38px;
+    letter-spacing: -2px;
+  }
+  .hero .eyebrow {
+    font-size: 9px;
+  }
+  .hero-intro {
+    font-size: 16px;
+  }
+  .hero .hero-actions {
+    gap: 12px;
+  }
+  .hero .button {
+    font-size: 13px;
+    padding: 14px 16px;
+  }
+  .hero .text-link {
+    font-size: 12px;
+  }
+  .hero-tags {
+    gap: 12px;
+  }
+  .hero-tags > span {
+    font-size: 9px;
+  }
+  .hero-visual {
+    height: 552px;
+  }
+  .phone {
+    --phone-scale: 1.02;
+  }
+  .floating-chat {
+    width: 224px;
+    padding: 13px;
+    left: -4px;
+    bottom: 64px;
+  }
+  .mini-user {
+    font-size: 9px;
+  }
+  .mini-reply {
+    font-size: 8px;
+  }
+  .visual-orbit {
+    width: 285px;
+    height: 285px;
+  }
+  .orbit-two {
+    width: 300px;
+    height: 300px;
+  }
+  .hero-visual:before {
+    width: 285px;
+    height: 285px;
+  }
+  .demo-chat-header h3 {
+    font-size: 17px;
+  }
+  .demo-chat-header p {
+    font-size: 9px;
+  }
+  .demo-chat-header {
+    padding: 15px;
+  }
+  .chat-stream {
+    padding: 16px;
+  }
+  .demo-composer input {
+    font-size: 12px;
+  }
+  .demo-suggestions button {
+    font-size: 10px;
+  }
+  .contact-card {
+    width: 245px;
+  }
+  .assistant-chip {
+    font-size: 9px;
+    padding: 9px;
+  }
+  .whitelist-inner {
+    padding: 27px 19px;
+  }
+  .whitelist-copy h2 {
+    font-size: 31px;
+  }
+  .whitelist-card {
+    padding: 22px;
+  }
+  .whitelist-card h3 {
+    font-size: 25px;
+  }
+  .whitelist-submit {
+    font-size: 14px;
+  }
+  .footer-links {
+    gap: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .movya-eye,
+  .movya-mascot:hover .movya-eye,
+  .brand:hover .movya-eye {
+    animation: none;
+    opacity: 0;
+  }
+  .movya-mascot:hover {
+    transform: none;
+  }
+  .phone {
+    transform: rotate(-5deg) scale(var(--phone-scale, 1));
+  }
+}
