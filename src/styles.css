@@ -5292,11 +5292,7 @@ summary {
   }
 }
 
-/* A fine outline follows the transparent mascot silhouette. */
+/* One subtle edge avoids stacking shadows over the logo's soft glow. */
 img[src$="/movya-logo.png"] {
-  filter:
-    drop-shadow(0.35px 0 0 #000)
-    drop-shadow(-0.35px 0 0 #000)
-    drop-shadow(0 0.35px 0 #000)
-    drop-shadow(0 -0.35px 0 #000);
+  filter: drop-shadow(0 0 0.15px rgba(0, 0, 0, 0.45));
 }
