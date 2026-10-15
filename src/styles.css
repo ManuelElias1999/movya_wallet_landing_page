@@ -5291,3 +5291,12 @@ summary {
     transform: rotate(-5deg) scale(var(--phone-scale, 1));
   }
 }
+
+/* A fine outline follows the transparent mascot silhouette. */
+img[src$="/movya-logo.png"] {
+  filter:
+    drop-shadow(0.6px 0 0 #000)
+    drop-shadow(-0.6px 0 0 #000)
+    drop-shadow(0 0.6px 0 #000)
+    drop-shadow(0 -0.6px 0 #000);
+}
