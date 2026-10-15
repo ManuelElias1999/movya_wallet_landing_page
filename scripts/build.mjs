@@ -17,7 +17,13 @@ const options = { origin: url.origin, basePath };
 await rm(out, { recursive: true, force: true });
 await mkdir(path.join(out, "es"), { recursive: true });
 await cp(path.join(root, "public"), out, { recursive: true });
-for (const file of ["styles.css", "app.js", "demo.js"])
+for (const file of [
+  "styles.css",
+  "app.js",
+  "demo.js",
+  "whitelist.js",
+  "motion.js",
+])
   await cp(path.join(root, "src", file), path.join(out, file));
 await writeFile(path.join(out, "index.html"), renderPage("en", options));
 await writeFile(path.join(out, "es", "index.html"), renderPage("es", options));

@@ -1,4 +1,9 @@
 import { parseDemoMessage } from "./demo.js";
+import { initWhitelist } from "./whitelist.js";
+import { initMotion } from "./motion.js";
+
+initWhitelist();
+initMotion();
 
 const nav = document.querySelector("#main-nav");
 const menu = document.querySelector(".menu-toggle");
@@ -29,7 +34,7 @@ document.addEventListener("click", (e) => {
   if (!e.target.closest(".site-header")) closeMenu();
 });
 window.addEventListener("resize", () => {
-  if (window.innerWidth > 700) closeMenu();
+  if (window.innerWidth > 900) closeMenu();
 });
 
 const copy = JSON.parse(document.querySelector("#demo-copy").textContent);
