@@ -2966,11 +2966,12 @@ details[open] summary .icon {
 
 /* Floating navigation: one clear destination for early access. */
 .site-header {
+  /* Reserve the expanded height so compacting never shifts the page below. */
+  height: 104px;
   padding-top: 14px;
   background: transparent;
   border: 0;
   backdrop-filter: none;
-  transition: padding 0.25s ease;
 }
 .site-header .header-inner {
   position: relative;
@@ -3602,6 +3603,7 @@ details[open] summary .icon {
 }
 @media (max-width: 700px) {
   .site-header {
+    height: 86px;
     padding-top: 10px;
   }
   .site-header .header-inner {
@@ -4293,12 +4295,12 @@ summary {
 }
 .site-header .header-inner {
   max-width: 1488px;
-  min-height: 90px;
+  height: 90px;
   padding-inline: 25px;
   gap: 22px;
 }
 .site-header.is-scrolled .header-inner {
-  min-height: 78px;
+  height: 78px;
 }
 .site-header .main-nav a {
   font-size: 15px;
@@ -4755,12 +4757,12 @@ summary {
     letter-spacing: 1.1px;
   }
   .site-header .header-inner {
-    min-height: 76px;
+    height: 76px;
     padding-inline: 13px;
     gap: 9px;
   }
   .site-header.is-scrolled .header-inner {
-    min-height: 70px;
+    height: 70px;
   }
   .site-header .movya-mascot {
     --mascot-size: 50px !important;

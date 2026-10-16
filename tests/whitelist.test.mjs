@@ -286,6 +286,46 @@ for (const lang of ["en", "es"])
     assert.equal(saved.language, lang);
     assert.equal(document.querySelector("#whitelist-success").hidden, false);
   });
+test("header stays stable around the compact threshold and coalesces scroll events", () => {
+  const { window, document } = parseHTML(renderPage("en"));
+  const frames = [];
+  window.scrollY = 0;
+  window.innerHeight = 800;
+  window.requestAnimationFrame = callback => frames.push(callback);
+  initMotion(document, window);
+  const header = document.querySelector(".site-header");
+  const scroll = y => {
+    window.scrollY = y;
+    window.dispatchEvent(new window.Event("scroll"));
+  };
+  const flush = () => { while (frames.length) frames.shift()(); };
+  scroll(24);
+  flush();
+  assert.equal(header.classList.contains("is-scrolled"), false);
+  scroll(25);
+  scroll(26);
+  assert.equal(frames.length, 1, "Multiple scroll events share one frame");
+  flush();
+  assert.equal(header.classList.contains("is-scrolled"), true);
+  // A 12px anchoring correction used to make the header expand again,
+  // move the content down, and compact again without user input.
+  for (const y of [14, 26, 14, 24, 9]) {
+    scroll(y);
+    flush();
+    assert.equal(header.classList.contains("is-scrolled"), true);
+  }
+  scroll(8);
+  flush();
+  assert.equal(header.classList.contains("is-scrolled"), false);
+  for (const y of [20, 24, 12, 0]) {
+    scroll(y);
+    flush();
+    assert.equal(header.classList.contains("is-scrolled"), false);
+  }
+  scroll(100);
+  flush();
+  assert.equal(header.classList.contains("is-scrolled"), true);
+});
 test("motion uses reveal observers and active navigation while honoring reduced motion and no-JS fallback", () => {
   for (const reduced of [false, true]) {
     const { window, document } = parseHTML(renderPage("en"));

@@ -2,11 +2,16 @@ export function initMotion(root = document, view = window) {
   const header = root.querySelector(".site-header");
   const reduced = view.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   let queued = false;
+  let compact = header.classList.contains("is-scrolled");
   const raf =
     view.requestAnimationFrame?.bind(view) || ((callback) => callback());
   function updateHeader() {
     const y = view.scrollY || 0;
-    header.classList.toggle("is-scrolled", y > 24);
+    // Separate thresholds prevent tiny scroll/anchoring adjustments from
+    // repeatedly switching the navigation between expanded and compact.
+    if (!compact && y > 24) compact = true;
+    else if (compact && y <= 8) compact = false;
+    header.classList.toggle("is-scrolled", compact);
     const height = Math.max(
       1,
       (root.documentElement.scrollHeight || 0) - (view.innerHeight || 0),
