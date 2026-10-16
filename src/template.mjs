@@ -125,7 +125,7 @@ ${brand(assets)}
 <section class="hero container" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="little-mark">✦</span>${t.eyebrow}</div>
 <h1 id="hero-title">${t.hero[0]}<br><span>${t.hero[1]}</span></h1>
 <p class="hero-intro">${t.intro}</p>
-<div class="hero-actions"><a class="button button-blue" href="#demo">${t.primary}${icon("arrow")}</a><a class="text-link" href="#whitelist">${t.join}${icon("up")}</a></div>
+<div class="hero-actions"><a class="button button-blue" href="#demo">${t.primary}${icon("arrow")}</a><a class="button button-outline" href="#whitelist">${t.join}${icon("arrow")}</a></div>
 <p class="stage-label"><span class="status-dot"></span>${t.stage}</p>
 <div class="hero-tags">${t.heroTags.map((x) => `<span>${icon("check")}${x}</span>`).join("")}</div>
 </div>
