@@ -72,6 +72,25 @@ export function createWhitelistHandler({
       !["en", "es"].includes(data.language)
     )
       return json({ ok: false, error: "invalid_request" }, 400);
+    const profile = {};
+    for (const [key, column, max] of [
+      ["name", "full_name", 120],
+      ["country", "country", 100],
+      ["city", "city", 120],
+      ["phone", "phone", 40],
+    ]) {
+      const value = data[key];
+      if (value === undefined || value === null) {
+        profile[column] = null;
+        continue;
+      }
+      if (typeof value !== "string")
+        return json({ ok: false, error: "invalid_request" }, 400);
+      const trimmed = value.trim();
+      if (trimmed.length > max || /[\u0000-\u001f\u007f]/u.test(trimmed))
+        return json({ ok: false, error: "invalid_request" }, 400);
+      profile[column] = trimmed || null;
+    }
     const secret = env.SUPABASE_SECRET_KEY;
     let endpoint;
     try {
@@ -103,6 +122,7 @@ export function createWhitelistHandler({
         },
         body: JSON.stringify({
           email,
+          ...profile,
           language: data.language,
           consent_at: now().toISOString(),
           source: "landing",

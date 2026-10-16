@@ -9,6 +9,16 @@ export function initWhitelist(
   const email = root.querySelector("#whitelist-email");
   const consent = root.querySelector("#whitelist-consent");
   const website = root.querySelector("#whitelist-website");
+  const details = [
+    ["name", 120],
+    ["country", 100],
+    ["city", 120],
+    ["phone", 40],
+  ].map(([key, max]) => ({
+    key,
+    max,
+    input: root.querySelector(`#whitelist-${key}`),
+  }));
   const status = root.querySelector("#whitelist-status");
   const success = root.querySelector("#whitelist-success");
   const button = form.querySelector('button[type="submit"]');
@@ -26,6 +36,11 @@ export function initWhitelist(
     email.removeAttribute("aria-invalid");
     status.textContent = "";
   });
+  for (const { input } of details)
+    input.addEventListener("input", () => {
+      input.removeAttribute("aria-invalid");
+      status.textContent = "";
+    });
   consent.addEventListener("change", () => {
     consent.removeAttribute("aria-invalid");
     status.textContent = "";
@@ -41,6 +56,13 @@ export function initWhitelist(
     )
       return report(copy.invalid, email);
     if (!consent.checked) return report(copy.consentError, consent);
+    const profile = {};
+    for (const { key, max, input } of details) {
+      const value = input.value.trim();
+      if (value.length > max || /[\u0000-\u001f\u007f]/u.test(value))
+        return report(copy.detailsError, input);
+      profile[key] = value || null;
+    }
     submitting = true;
     status.textContent = "";
     button.disabled = true;
@@ -54,6 +76,7 @@ export function initWhitelist(
         credentials: "same-origin",
         body: JSON.stringify({
           email: value,
+          ...profile,
           consent: true,
           language: root.documentElement.lang,
           website: website.value || "",
@@ -76,6 +99,7 @@ export function initWhitelist(
       success.hidden = false;
       success.focus({ preventScroll: true });
       email.value = "";
+      for (const { input } of details) input.value = "";
     } catch {
       report(copy.error);
     } finally {

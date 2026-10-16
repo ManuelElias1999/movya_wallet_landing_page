@@ -48,11 +48,52 @@ test("whitelist saves normalized email, consent and language using server-only c
   assert.ok(sent.options.headers.Prefer.includes("ignore-duplicates"));
   assert.deepEqual(JSON.parse(sent.options.body), {
     email: "alex@example.com",
+    full_name: null,
+    country: null,
+    city: null,
+    phone: null,
     language: "en",
     consent_at: "2026-10-15T22:00:00.000Z",
     source: "landing",
   });
   assert.equal(response.headers.get("cache-control"), "no-store");
+});
+test("optional profile details preserve international names, places and phone formatting", async () => {
+  let saved;
+  const handler = createWhitelistHandler({
+    env: environment,
+    fetcher: async (_, options) => {
+      saved = JSON.parse(options.body);
+      return new Response(null, { status: 201 });
+    },
+  });
+  const response = await handler(request({
+    ...payload,
+    name: "  Ana María 李  ",
+    country: " Bolivia ",
+    city: " La Paz ",
+    phone: " +591 (700) 000-00 ",
+  }));
+  assert.equal(response.status, 200);
+  assert.equal(saved.full_name, "Ana María 李");
+  assert.equal(saved.country, "Bolivia");
+  assert.equal(saved.city, "La Paz");
+  assert.equal(saved.phone, "+591 (700) 000-00");
+  await handler(request({ ...payload, name: "   ", country: null, city: "", phone: " " }));
+  for (const key of ["full_name", "country", "city", "phone"])
+    assert.equal(saved[key], null);
+});
+test("invalid optional fields are rejected without writing to storage", async () => {
+  let calls = 0;
+  const handler = createWhitelistHandler({
+    env: environment,
+    fetcher: async () => { calls++; return new Response(null, { status: 201 }); },
+  });
+  for (const [key, limit] of [["name", 120], ["country", 100], ["city", 120], ["phone", 40]]) {
+    for (const value of ["x".repeat(limit + 1), {}, 1234, ["unexpected"], "a\u0000b", "a\nb"])
+      assert.equal((await handler(request({ ...payload, [key]: value }))).status, 400);
+  }
+  assert.equal(calls, 0);
 });
 test("new and existing emails have identical results without exposing a subscriber record", async () => {
   for (const status of [200, 201, 204]) {
@@ -157,6 +198,13 @@ for (const lang of ["en", "es"])
     const form = document.querySelector("#whitelist-form");
     const email = document.querySelector("#whitelist-email");
     const consent = document.querySelector("#whitelist-consent");
+    for (const key of ["name", "country", "city", "phone"]) {
+      const input = document.querySelector(`#whitelist-${key}`);
+      assert.ok(input);
+      assert.equal(input.hasAttribute("required"), false);
+      assert.ok(document.querySelector(`label[for="whitelist-${key}"]`).textContent.includes(copy.optional));
+    }
+    assert.equal(email.hasAttribute("required"), true);
     const status = document.querySelector("#whitelist-status");
     const success = document.querySelector("#whitelist-success");
     const submit = () =>
@@ -197,6 +245,10 @@ for (const lang of ["en", "es"])
     assert.equal(email.value, "");
     assert.deepEqual(JSON.parse(records[0].options.body), {
       email: "test@example.com",
+      name: null,
+      country: null,
+      city: null,
+      phone: null,
       consent: true,
       language: lang,
       website: "",
@@ -205,6 +257,34 @@ for (const lang of ["en", "es"])
     assert.equal(records[0].options.method, "POST");
     assert.equal(document.querySelector('footer a[href*="github"]'), null);
     assert.ok(!document.body.textContent.includes("Wallet source"));
+  });
+for (const lang of ["en", "es"])
+  test(`${lang}: optional details travel from the form through the API into the saved record`, async () => {
+    const { window, document } = parseHTML(renderPage(lang));
+    window.HTMLElement.prototype.focus = function () {};
+    let saved;
+    const handler = createWhitelistHandler({ env: environment, fetcher: async (_, options) => {
+      saved = JSON.parse(options.body);
+      return new Response(null, { status: 201 });
+    }});
+    initWhitelist(document, (url, options) => handler(new Request(new URL(url, origin), {
+      ...options, headers: { ...options.headers, origin },
+    })));
+    document.querySelector("#whitelist-email").value = " PROFILE@Example.com ";
+    document.querySelector("#whitelist-name").value = " María López ";
+    document.querySelector("#whitelist-country").value = " Bolivia ";
+    document.querySelector("#whitelist-city").value = " Cochabamba ";
+    document.querySelector("#whitelist-phone").value = " +591 7000 0000 ";
+    document.querySelector("#whitelist-consent").checked = true;
+    document.querySelector("#whitelist-form").dispatchEvent(new window.Event("submit", { cancelable: true }));
+    await new Promise(resolve => setTimeout(resolve, 10));
+    assert.equal(saved.email, "profile@example.com");
+    assert.equal(saved.full_name, "María López");
+    assert.equal(saved.country, "Bolivia");
+    assert.equal(saved.city, "Cochabamba");
+    assert.equal(saved.phone, "+591 7000 0000");
+    assert.equal(saved.language, lang);
+    assert.equal(document.querySelector("#whitelist-success").hidden, false);
   });
 test("motion uses reveal observers and active navigation while honoring reduced motion and no-JS fallback", () => {
   for (const reduced of [false, true]) {

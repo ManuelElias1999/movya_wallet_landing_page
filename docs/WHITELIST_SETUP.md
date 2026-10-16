@@ -1,6 +1,6 @@
 # Activate the whitelist on Vercel
 
-The page includes an English/Spanish signup form. `POST /api/whitelist` stores emails in a private Supabase table. There is no simulated success: if storage is not configured or saving fails, the form shows an error and keeps the email available for retry.
+The page includes an English/Spanish signup form. Email is the only required contact field; full name, country, city and phone are optional. `POST /api/whitelist` stores signups in a private Supabase table. There is no simulated success: if storage is not configured or saving fails, the form shows an error and keeps the details available for retry.
 
 ## 1. Prepare the database
 
@@ -8,7 +8,9 @@ Use an existing Supabase project or a dedicated project for the landing. In the 
 
 `supabase/migrations/202610150001_movya_whitelist.sql`
 
-The migration creates only `public.movya_whitelist`; it does not change wallet tables or accounts. The table stores email, language, signup time and consent time. Its primary key deduplicates normalized email addresses. RLS is enabled, and anonymous/signed-in client roles cannot read or write subscribers.
+Then run the `add_whitelist_optional_details` migration in the same directory. For an existing installation, only that additional migration is needed.
+
+These migrations only modify `public.movya_whitelist`; they do not change wallet tables or accounts. The table stores email, optional full name/country/city/phone, language, signup time and consent time. Empty optional fields are stored as `NULL`. Phone numbers remain text so country codes and formatting are preserved. Its primary key deduplicates normalized email addresses. Repeat signups keep the original record rather than allowing an unauthenticated visitor to replace another subscriber’s details. RLS is enabled, and anonymous/signed-in client roles cannot read or write subscribers.
 
 ## 2. Add the server variables in Vercel
 
@@ -25,7 +27,7 @@ The static build does not read or embed these variables. The Vercel Function rea
 
 ## 3. Redeploy and verify
 
-Redeploy the latest `main` commit, then submit a test email with consent from the deployed page. Verify the row appears under **Supabase → Table Editor → movya_whitelist**. Try the same address again: it should still be one row. Delete your test row afterward if desired.
+Redeploy the latest `main` commit, then submit a test email with consent from the deployed page. Verify the row appears under **Supabase → Table Editor → movya_whitelist**. Check both an email-only signup and a signup with optional details, in English and Spanish. Try the same address again: it should still be one row. Delete your test rows afterward if desired.
 
 The form preserves failed submissions for retry and does not report success for a database or network failure. The endpoint rejects cross-origin browser requests, malformed/oversized input, missing consent and the hidden bot field. It only accepts POST; there is no public subscriber-list endpoint. Existing and new signups return the same minimal result.
 

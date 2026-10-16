@@ -5296,3 +5296,64 @@ summary {
 img[src$="/movya-logo.png"] {
   filter: drop-shadow(0 0 0.45px rgba(0, 0, 0, 0.8));
 }
+
+/* Optional whitelist details keep the same readable input sizes on every screen. */
+.whitelist-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+  margin-top: 20px;
+}
+.whitelist-field {
+  min-width: 0;
+}
+.whitelist-field-wide {
+  grid-column: 1 / -1;
+}
+.whitelist-field label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin-bottom: 9px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.whitelist-field label small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.whitelist-field input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 54px;
+  padding: 12px 13px;
+  border: 1px solid #c8d9ef;
+  border-radius: 11px;
+  background: #f9fbff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.whitelist-field input::placeholder {
+  color: #7890af;
+}
+.whitelist-field input:focus-visible {
+  border-color: var(--blue);
+  outline: none;
+  box-shadow: 0 0 0 3px #176bff14;
+}
+.whitelist-field input[aria-invalid="true"] {
+  border-color: #c64a55;
+  box-shadow: 0 0 0 3px #c64a550d;
+}
+@media (max-width: 600px) {
+  .whitelist-details {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
