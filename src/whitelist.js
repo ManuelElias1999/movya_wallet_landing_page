@@ -179,6 +179,16 @@ export function initWhitelist(
         if (input.tagName !== "SELECT") input.value = "";
       country.options[0].selected = true;
       updateCountry();
+      // Recenter after the tall form collapses into the shorter confirmation.
+      const view = root.defaultView;
+      const centerConfirmation = () => success.closest(".whitelist-card").scrollIntoView?.({
+        block: "center",
+        inline: "nearest",
+        behavior: view?.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+          ? "instant" : "smooth",
+      });
+      if (view?.requestAnimationFrame) view.requestAnimationFrame(centerConfirmation);
+      else centerConfirmation();
     } catch {
       report(copy.error);
     } finally {

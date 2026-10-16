@@ -217,6 +217,15 @@ for (const lang of ["en", "es"])
     assert.ok(!form.textContent.includes(lang === "es" ? "Opcional" : "Optional"));
     const status = document.querySelector("#whitelist-status");
     const success = document.querySelector("#whitelist-success");
+    const scrolls = [];
+    const frames = [];
+    window.requestAnimationFrame = callback => frames.push(callback);
+    window.matchMedia = () => ({ matches: lang === "es" });
+    document.querySelector(".whitelist-card").scrollIntoView = options => {
+      assert.equal(form.hidden, true);
+      assert.equal(success.hidden, false);
+      scrolls.push(options);
+    };
     const submit = () =>
       form.dispatchEvent(new window.Event("submit", { cancelable: true }));
     const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
@@ -247,12 +256,19 @@ for (const lang of ["en", "es"])
     await settle();
     assert.equal(success.hidden, true);
     assert.equal(status.textContent, copy.error);
+    assert.equal(frames.length, 0, "Failed submissions keep the form in place");
     submit();
     fulfill(new Response(JSON.stringify({ ok: true }), { status: 200 }));
     await settle();
     assert.equal(success.hidden, false);
     assert.equal(form.hidden, true);
     assert.equal(email.value, "");
+    assert.equal(frames.length, 1, "Wait for the confirmation layout before centering");
+    frames.shift()();
+    assert.deepEqual(scrolls, [{
+      block: "center", inline: "nearest",
+      behavior: lang === "es" ? "instant" : "smooth",
+    }]);
     assert.deepEqual(JSON.parse(records[0].options.body), {
       email: "test@example.com",
       name: null,
