@@ -361,8 +361,11 @@ for (const lang of ["en", "es"])
     document.querySelector("#whitelist-consent").checked = true;
     choose(country, "BO", window);
     assert.equal(city.disabled, false);
-    for (const name of ["La Paz", "El Alto", "Cochabamba", "Santa Cruz de la Sierra", "Tarija", "Cobija"])
-      assert.ok([...city.options].some(option => option.value === name));
+    assert.deepEqual(
+      [...city.options].map(option => option.value).filter(value => value && value !== "__other"),
+      ["Cobija", "Cochabamba", "La Paz", "Oruro", "Potosí", "Santa Cruz de la Sierra", "Sucre", "Tarija", "Trinidad"],
+    );
+    assert.ok([...city.options].some(option => option.value === "__other"));
     choose(city, "Cochabamba", window);
     assert.equal((await submit()).city, "Cochabamba");
     assert.equal(records.at(-1).country, "Bolivia");

@@ -5,7 +5,7 @@ export const cityAttribution = {
   "download": "https://download.geonames.org/export/dump/cities15000.zip",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "retrieved": "2026-10-16",
-  "changes": "Up to 60 distinct city names per country, selected by population. El Alto added to Bolivia."
+  "changes": "Up to 60 distinct city names per country, selected by population. Bolivia curated to its nine departmental capitals."
 };
 export const citySuggestions = {
   "AD": ["Andorra la Vella", "les Escaldes"],
@@ -35,7 +35,7 @@ export const citySuggestions = {
   "BL": ["Gustavia"],
   "BM": ["Hamilton"],
   "BN": ["Bandar Seri Begawan", "Kuala Belait", "Liang", "Mentiri", "Sengkurong", "Serasa", "Tutong"],
-  "BO": ["Achocalla", "Ascención de Guarayos", "Bermejo", "Camiri", "Caranavi", "Cobija", "Cochabamba", "Colcapirhua", "Cotoca", "El Alto", "El Torno", "Guayaramerín", "Huanuni", "La Paz", "Laja", "Llallagua", "Mizque", "Montero", "Oruro", "Potosí", "Punata", "Quillacollo", "Riberalta", "Sacaba", "San Borja", "San Ignacio de Velasco", "Santa Cruz de la Sierra", "Sipe Sipe", "Sucre", "Tarija", "Tiquipaya", "Trinidad", "Tupiza", "Viacha", "Villa Yapacaní", "Villamontes", "Villazón", "Vinto", "Warnes", "Yacuiba"],
+  "BO": ["Cobija", "Cochabamba", "La Paz", "Oruro", "Potosí", "Santa Cruz de la Sierra", "Sucre", "Tarija", "Trinidad"],
   "BQ": ["Kralendijk"],
   "BR": ["Ananindeua", "Aparecida de Goiânia", "Aracaju", "Barra da Tijuca", "Belford Roxo", "Belo Horizonte", "Belém", "Boa Vista", "Brasília", "Campina Grande", "Campinas", "Campo Grande", "Campos dos Goytacazes", "Caxias do Sul", "Contagem", "Cuiabá", "Curitiba", "Duque de Caxias", "Feira de Santana", "Florianópolis", "Fortaleza", "Goiânia", "Guarulhos", "Jaboatão dos Guararapes", "Joinville", "João Pessoa", "Juiz de Fora", "Jundiaí", "Londrina", "Macapá", "Maceió", "Manaus", "Maringá", "Mauá", "Montes Claros", "Natal", "Niterói", "Nova Iguaçu", "Osasco", "Petrolina", "Piracicaba", "Porto Alegre", "Porto Velho", "Recife", "Ribeirão Preto", "Rio Branco", "Rio de Janeiro", "Salvador", "Santo André", "Santos", "Serra", "Sorocaba", "São Bernardo do Campo", "São José do Rio Preto", "São José dos Campos", "São João de Meriti", "São Luís", "São Paulo", "Teresina", "Uberlândia"],
   "BS": ["Freeport", "Killarney", "Lucaya", "Nassau"],
