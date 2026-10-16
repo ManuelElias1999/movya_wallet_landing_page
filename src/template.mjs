@@ -1,4 +1,5 @@
 import { content } from "./content.mjs";
+import { dialingCodes } from "./dialing-codes.mjs";
 export const escape = (s) =>
   String(s).replace(
     /[&<>"']/g,
@@ -89,14 +90,30 @@ export function renderPage(
       },
     ],
   };
+  const regionNames = new Intl.DisplayNames([lang], { type: "region" });
+  const phoneOptions = dialingCodes
+    .map(([region, dialCode]) => ({
+      region,
+      dialCode,
+      name: regionNames.of(region),
+      flag: String.fromCodePoint(...[...region].map(char => char.charCodeAt(0) + 127397)),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name, lang))
+    .map(({ region, dialCode, name, flag }) =>
+      `<option value="${region}" data-dial-code="${dialCode}" data-flag="${flag}"${region === "BO" ? " selected" : ""}>${escape(name)} ${flag} (+${dialCode})</option>`
+    ).join("");
   const optionalDetails = [
     ["name", "text", "name", 120, true],
     ["country", "text", "country-name", 100, false],
     ["city", "text", "address-level2", 120, false],
-    ["phone", "tel", "tel", 40, true],
-  ].map(([key, type, autocomplete, max, wide]) =>
-    `<div class="whitelist-field${wide ? " whitelist-field-wide" : ""}"><label for="whitelist-${key}">${escape(t.whitelist[key])}<small>${t.whitelist.optional}</small></label><input id="whitelist-${key}" name="${key}" type="${type}" autocomplete="${autocomplete}" maxlength="${max}" placeholder="${escape(t.whitelist[`${key}Placeholder`])}" aria-describedby="whitelist-status whitelist-privacy"></div>`
-  ).join("");
+    ["phone", "tel", "tel-national", 24, true],
+  ].map(([key, type, autocomplete, max, wide]) => {
+    const input = `<input id="whitelist-${key}" name="${key}" type="${type}" autocomplete="${autocomplete}"${key === "phone" ? ' inputmode="tel"' : ""} maxlength="${max}" placeholder="${escape(t.whitelist[`${key}Placeholder`])}" aria-describedby="whitelist-status whitelist-privacy">`;
+    const field = key === "phone"
+      ? `<div class="whitelist-phone-wrap"><div class="whitelist-phone-prefix"><span id="whitelist-phone-prefix-display" aria-hidden="true">🇧🇴 +591</span>${icon("chevron")}<select id="whitelist-phone-prefix" name="phone_prefix" aria-label="${escape(t.whitelist.phonePrefix)}" autocomplete="tel-country-code">${phoneOptions}</select></div>${input}</div>`
+      : input;
+    return `<div class="whitelist-field${wide ? " whitelist-field-wide" : ""}"><label for="whitelist-${key}">${escape(t.whitelist[key])}</label>${field}</div>`;
+  }).join("");
   const demoData = JSON.stringify(t.demo).replaceAll("<", "\\u003c");
   return `<!doctype html>
 <html lang="${lang}">
@@ -154,7 +171,7 @@ ${brand(assets)}
 </div></div></section>
 <section class="control-section section" aria-labelledby="control-title"><div class="container control-layout"><div class="control-copy"><span class="eyebrow">${t.control.label}</span><h2 id="control-title">${br(t.control.title)}</h2><p class="section-text">${t.control.text}</p><div class="control-points">${t.control.points.map(([a, b], i) => `<div><span>${icon(["shield", "wallet", "activity"][i])}</span><section><h3>${a}</h3><p>${b}</p></section></div>`).join("")}</div></div><div class="approval-art"><div class="approval-backdrop"></div><div class="approval-card"><span class="approval-icon">${icon("shield")}</span><span class="eyebrow">${t.control.status}</span><h3>${t.control.receipt}</h3><div class="approval-amount">20.00 <span>USDC</span></div><div class="approval-person"><span class="contact-avatar">O</span><div><small>${t.demo.to}</small><strong>Ouali</strong></div><span class="contact-check">${icon("check")}</span></div><p>${t.control.receiptNote}</p><span class="approval-button">${icon("check")}${t.control.receiptAction}</span></div><span class="approval-caption">${icon("shield")}${t.ui.review}</span></div></div></section>
 <section class="faq-section section container" id="faq" aria-labelledby="faq-title"><div><span class="eyebrow">${t.faq.label}</span><h2 id="faq-title">${br(t.faq.title)}</h2></div><div class="faq-list">${t.faq.items.map(([q, a], i) => `<details ${i === 0 ? "open" : ""}><summary>${q}<span>${icon("plus")}</span></summary><div class="faq-answer"><p>${a}</p></div></details>`).join("")}</div></section>
-<section class="whitelist-section container" id="whitelist" aria-labelledby="whitelist-title"><div class="whitelist-inner"><div class="whitelist-copy"><span class="eyebrow">${t.whitelist.label}</span><h2 id="whitelist-title">${br(t.whitelist.title)}</h2><p>${t.whitelist.text}</p><div class="whitelist-mascot">${mascot(assets, 144)}<span>${t.whitelist.tag}</span><span class="whitelist-spark" aria-hidden="true">✦</span></div></div><div class="whitelist-card"><span class="whitelist-card-icon">${icon("chat")}</span><h3>${t.whitelist.formTitle}</h3><p class="whitelist-card-intro">${t.whitelist.formText}</p><form id="whitelist-form" action="${base}/api/whitelist" method="post" aria-label="${t.whitelist.formLabel}" novalidate><label for="whitelist-email">${t.whitelist.email}</label><div class="whitelist-email-wrap">${icon("send")}<input id="whitelist-email" type="email" name="email" autocomplete="email" inputmode="email" maxlength="254" placeholder="${escape(t.whitelist.placeholder)}" aria-describedby="whitelist-status whitelist-privacy" required></div><div class="whitelist-details">${optionalDetails}</div><div class="whitelist-honeypot" aria-hidden="true"><label for="whitelist-website">${t.whitelist.website}</label><input id="whitelist-website" type="text" name="website" tabindex="-1" autocomplete="off"></div><label class="whitelist-consent" for="whitelist-consent"><input id="whitelist-consent" type="checkbox" name="consent" required><span>${t.whitelist.consent}</span></label><button class="button button-blue whitelist-submit" type="submit" disabled><span>${t.whitelist.submit}</span>${icon("arrow")}</button><p id="whitelist-status" class="whitelist-status" role="status" aria-live="polite" aria-atomic="true"></p><p class="whitelist-hint">${icon("shield")}${t.whitelist.hint}</p></form><div id="whitelist-success" class="whitelist-success" hidden tabindex="-1"><span>${icon("check")}</span><h4>${t.whitelist.successTitle}</h4><p>${t.whitelist.success}</p></div><p class="whitelist-privacy" id="whitelist-privacy">${t.whitelist.privacy}</p><noscript><p class="noscript-note">${t.whitelist.noScript}</p></noscript></div></div></section>
+<section class="whitelist-section container" id="whitelist" aria-labelledby="whitelist-title"><div class="whitelist-inner"><div class="whitelist-copy"><span class="eyebrow">${t.whitelist.label}</span><h2 id="whitelist-title">${br(t.whitelist.title)}</h2><p>${t.whitelist.text}</p><div class="whitelist-mascot">${mascot(assets, 144)}<span>${t.whitelist.tag}</span><span class="whitelist-spark" aria-hidden="true">✦</span></div></div><div class="whitelist-card"><span class="whitelist-card-icon">${icon("chat")}</span><h3>${t.whitelist.formTitle}</h3><p class="whitelist-card-intro">${t.whitelist.formText}</p><form id="whitelist-form" action="${base}/api/whitelist" method="post" aria-label="${t.whitelist.formLabel}" novalidate><label for="whitelist-email">${t.whitelist.email}<span class="required-star" aria-hidden="true"> *</span></label><div class="whitelist-email-wrap">${icon("send")}<input id="whitelist-email" type="email" name="email" autocomplete="email" inputmode="email" maxlength="254" placeholder="${escape(t.whitelist.placeholder)}" aria-describedby="whitelist-status whitelist-privacy" required></div><div class="whitelist-details">${optionalDetails}</div><div class="whitelist-honeypot" aria-hidden="true"><label for="whitelist-website">${t.whitelist.website}</label><input id="whitelist-website" type="text" name="website" tabindex="-1" autocomplete="off"></div><label class="whitelist-consent" for="whitelist-consent"><input id="whitelist-consent" type="checkbox" name="consent" required><span>${t.whitelist.consent}</span></label><button class="button button-blue whitelist-submit" type="submit" disabled><span>${t.whitelist.submit}</span>${icon("arrow")}</button><p id="whitelist-status" class="whitelist-status" role="status" aria-live="polite" aria-atomic="true"></p><p class="whitelist-hint">${icon("shield")}${t.whitelist.hint}</p></form><div id="whitelist-success" class="whitelist-success" hidden tabindex="-1"><span>${icon("check")}</span><h4>${t.whitelist.successTitle}</h4><p>${t.whitelist.success}</p></div><p class="whitelist-privacy" id="whitelist-privacy">${t.whitelist.privacy}</p><noscript><p class="noscript-note">${t.whitelist.noScript}</p></noscript></div></div></section>
 </main>
 <footer class="site-footer"><div class="container"><div class="footer-top"><div>${brand(assets)}<p class="footer-line">${t.footer.line}</p></div><div class="footer-links"><div><h3>${t.footer.product}</h3><a href="#wallet">${t.nav[0]}</a><a href="#demo">${t.nav[1]}</a><a href="#faq">${t.nav[2]}</a></div><div><h3>${t.footer.connect}</h3><a href="https://www.instagram.com/movya_wallet/" target="_blank" rel="noopener noreferrer">${icon("instagram")}${t.footer.instagram}${icon("up")}</a><a href="#whitelist">${icon("chat")}${t.nav[3]}${icon("up")}</a></div></div></div><div class="footer-bottom"><span>© ${new Date().getUTCFullYear()} ${t.footer.copyright}</span><span class="footer-stage"><span class="status-dot"></span>${t.footer.status}</span><a href="#top">${t.footer.top}${icon("up")}</a></div></div></footer>
 </body></html>`;

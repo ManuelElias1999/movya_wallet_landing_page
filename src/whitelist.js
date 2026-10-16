@@ -9,6 +9,17 @@ export function initWhitelist(
   const email = root.querySelector("#whitelist-email");
   const consent = root.querySelector("#whitelist-consent");
   const website = root.querySelector("#whitelist-website");
+  const phone = root.querySelector("#whitelist-phone");
+  const phonePrefix = root.querySelector("#whitelist-phone-prefix");
+  const phonePrefixDisplay = root.querySelector("#whitelist-phone-prefix-display");
+  const selectedPrefix = () => phonePrefix.querySelector("option:checked");
+  function updatePhonePrefix() {
+    const option = selectedPrefix();
+    phonePrefixDisplay.textContent = `${option.dataset.flag} +${option.dataset.dialCode}`;
+    phone.removeAttribute("aria-invalid");
+  }
+  phonePrefix.addEventListener("change", updatePhonePrefix);
+  updatePhonePrefix();
   const details = [
     ["name", 120],
     ["country", 100],
@@ -62,6 +73,14 @@ export function initWhitelist(
       if (value.length > max || /[\u0000-\u001f\u007f]/u.test(value))
         return report(copy.detailsError, input);
       profile[key] = value || null;
+    }
+    if (profile.phone) {
+      const digits = profile.phone.replace(/\D/g, "");
+      const dialCode = selectedPrefix().dataset.dialCode;
+      if (!/^[\d\s().-]+$/u.test(profile.phone) || digits.length < 4 ||
+          dialCode.length + digits.length > 15)
+        return report(copy.phoneError, phone);
+      profile.phone = `+${dialCode} ${digits}`;
     }
     submitting = true;
     status.textContent = "";

@@ -202,9 +202,12 @@ for (const lang of ["en", "es"])
       const input = document.querySelector(`#whitelist-${key}`);
       assert.ok(input);
       assert.equal(input.hasAttribute("required"), false);
-      assert.ok(document.querySelector(`label[for="whitelist-${key}"]`).textContent.includes(copy.optional));
+      assert.equal(document.querySelector(`label[for="whitelist-${key}"]`).textContent, copy[key]);
     }
     assert.equal(email.hasAttribute("required"), true);
+    assert.equal(document.querySelectorAll('#whitelist-form .required-star').length, 1);
+    assert.ok(document.querySelector('label[for="whitelist-email"] .required-star'));
+    assert.ok(!form.textContent.includes(lang === "es" ? "Opcional" : "Optional"));
     const status = document.querySelector("#whitelist-status");
     const success = document.querySelector("#whitelist-success");
     const submit = () =>
@@ -274,7 +277,7 @@ for (const lang of ["en", "es"])
     document.querySelector("#whitelist-name").value = " María López ";
     document.querySelector("#whitelist-country").value = " Bolivia ";
     document.querySelector("#whitelist-city").value = " Cochabamba ";
-    document.querySelector("#whitelist-phone").value = " +591 7000 0000 ";
+    document.querySelector("#whitelist-phone").value = " 7000 0000 ";
     document.querySelector("#whitelist-consent").checked = true;
     document.querySelector("#whitelist-form").dispatchEvent(new window.Event("submit", { cancelable: true }));
     await new Promise(resolve => setTimeout(resolve, 10));
@@ -282,10 +285,49 @@ for (const lang of ["en", "es"])
     assert.equal(saved.full_name, "María López");
     assert.equal(saved.country, "Bolivia");
     assert.equal(saved.city, "Cochabamba");
-    assert.equal(saved.phone, "+591 7000 0000");
+    assert.equal(saved.phone, "+591 70000000");
     assert.equal(saved.language, lang);
     assert.equal(document.querySelector("#whitelist-success").hidden, false);
   });
+test("phone prefixes show localized countries and flags and combine only when a number is entered", async () => {
+  const { window, document } = parseHTML(renderPage("es"));
+  window.HTMLElement.prototype.focus = function () {};
+  const form = document.querySelector("#whitelist-form");
+  const prefix = document.querySelector("#whitelist-phone-prefix");
+  const number = document.querySelector("#whitelist-phone");
+  const status = document.querySelector("#whitelist-status");
+  const records = [];
+  initWhitelist(document, async (_, options) => {
+    records.push(JSON.parse(options.body));
+    return Response.json({ ok: false }, { status: 503 });
+  });
+  const submit = async () => {
+    form.dispatchEvent(new window.Event("submit", { cancelable: true }));
+    await new Promise(resolve => setTimeout(resolve, 0));
+  };
+  assert.ok(prefix.options.length > 200);
+  assert.ok(prefix.querySelector('option[value="ES"]').textContent.includes("España"));
+  assert.ok(prefix.querySelector('option[value="US"]').textContent.includes("🇺🇸"));
+  assert.equal(number.getAttribute("autocomplete"), "tel-national");
+  assert.equal(prefix.hasAttribute("required"), false);
+  for (const option of prefix.options) option.removeAttribute("selected");
+  prefix.querySelector('option[value="ES"]').selected = true;
+  prefix.dispatchEvent(new window.Event("change"));
+  assert.equal(document.querySelector("#whitelist-phone-prefix-display").textContent, "🇪🇸 +34");
+  document.querySelector("#whitelist-email").value = "phone@example.com";
+  document.querySelector("#whitelist-consent").checked = true;
+  await submit();
+  assert.equal(records.at(-1).phone, null);
+  number.value = "612 345-678";
+  await submit();
+  assert.equal(records.at(-1).phone, "+34 612345678");
+  for (const value of ["+34 612345678", "call me", "123", "123456789012345"]) {
+    number.value = value;
+    await submit();
+    assert.equal(status.textContent, content.es.whitelist.phoneError);
+  }
+  assert.equal(records.length, 2, "Invalid numbers never reach storage");
+});
 test("header stays stable around the compact threshold and coalesces scroll events", () => {
   const { window, document } = parseHTML(renderPage("en"));
   const frames = [];
