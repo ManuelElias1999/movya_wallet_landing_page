@@ -1,5 +1,6 @@
 import { content } from "./content.mjs";
 import { dialingCodes } from "./dialing-codes.mjs";
+import { citySuggestions, cityAttribution } from "./cities.mjs";
 export const escape = (s) =>
   String(s).replace(
     /[&<>"']/g,
@@ -102,6 +103,10 @@ export function renderPage(
     .map(({ region, dialCode, name, flag }) =>
       `<option value="${region}" data-dial-code="${dialCode}" data-flag="${flag}"${region === "BO" ? " selected" : ""}>${escape(name)} ${flag} (+${dialCode})</option>`
     ).join("");
+  const countryOptions = [...new Set([...dialingCodes.map(([code]) => code), ...Object.keys(citySuggestions)])]
+    .map(code => ({ code, name: regionNames.of(code) }))
+    .sort((a, b) => a.name.localeCompare(b.name, lang))
+    .map(({ code, name }) => `<option value="${code}" data-country-name="${escape(name)}">${escape(name)}</option>`).join("");
   const optionalDetails = [
     ["name", "text", "name", 120, true],
     ["country", "text", "country-name", 100, false],
@@ -111,7 +116,11 @@ export function renderPage(
     const input = `<input id="whitelist-${key}" name="${key}" type="${type}" autocomplete="${autocomplete}"${key === "phone" ? ' inputmode="tel"' : ""} maxlength="${max}" placeholder="${escape(t.whitelist[`${key}Placeholder`])}" aria-describedby="whitelist-status whitelist-privacy">`;
     const field = key === "phone"
       ? `<div class="whitelist-phone-wrap"><div class="whitelist-phone-prefix"><span id="whitelist-phone-prefix-display" aria-hidden="true">🇧🇴 +591</span>${icon("chevron")}<select id="whitelist-phone-prefix" name="phone_prefix" aria-label="${escape(t.whitelist.phonePrefix)}" autocomplete="tel-country-code">${phoneOptions}</select></div>${input}</div>`
-      : input;
+      : key === "country"
+        ? `<select id="whitelist-country" name="country" autocomplete="country" aria-describedby="whitelist-status whitelist-privacy"><option value="" selected>${t.whitelist.chooseCountry}</option>${countryOptions}<option value="__other">${t.whitelist.otherCountry}</option></select><input id="whitelist-country-other" name="country_other" type="text" maxlength="100" autocomplete="country-name" placeholder="${t.whitelist.enterCountry}" aria-label="${t.whitelist.enterCountry}" aria-describedby="whitelist-status whitelist-privacy" hidden disabled>`
+        : key === "city"
+          ? `<select id="whitelist-city" name="city" autocomplete="address-level2" aria-describedby="whitelist-status whitelist-privacy" disabled><option value="" selected>${t.whitelist.chooseCountryFirst}</option></select><input id="whitelist-city-other" name="city_other" type="text" maxlength="120" autocomplete="address-level2" placeholder="${t.whitelist.enterCity}" aria-label="${t.whitelist.enterCity}" aria-describedby="whitelist-status whitelist-privacy" hidden disabled>`
+          : input;
     return `<div class="whitelist-field${wide ? " whitelist-field-wide" : ""}"><label for="whitelist-${key}">${escape(t.whitelist[key])}</label>${field}</div>`;
   }).join("");
   const demoData = JSON.stringify(t.demo).replaceAll("<", "\\u003c");
@@ -127,6 +136,7 @@ export function renderPage(
 <link rel="preload" href="${assets}manrope-extrabold.woff" as="font" type="font/woff" crossorigin><link rel="stylesheet" href="${base}/styles.css">
 <script type="application/ld+json">${JSON.stringify(structured).replaceAll("<", "\\u003c")}</script>
 <script id="demo-copy" type="application/json">${demoData}</script>
+<script id="whitelist-locations" type="application/json">${JSON.stringify({ attribution: cityAttribution, cities: citySuggestions }).replaceAll("<", "\\u003c")}</script>
 <script id="whitelist-copy" type="application/json">${JSON.stringify(t.whitelist).replaceAll("<", "\\u003c")}</script>
 <script type="module" src="${base}/app.js"></script>
 </head>

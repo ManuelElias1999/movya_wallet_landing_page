@@ -18,6 +18,13 @@ const payload = {
   language: "en",
   website: "",
 };
+const choose = (select, value, window) => {
+  for (const option of select.options) option.removeAttribute("selected");
+  const option = [...select.options].find(option => option.value === value);
+  assert.ok(option, `Available choice: ${value}`);
+  option.selected = true;
+  select.dispatchEvent(new window.Event("change"));
+};
 const request = (data = payload, headers = {}, method = "POST") =>
   new Request(`${origin}/api/whitelist`, {
     method,
@@ -275,8 +282,8 @@ for (const lang of ["en", "es"])
     })));
     document.querySelector("#whitelist-email").value = " PROFILE@Example.com ";
     document.querySelector("#whitelist-name").value = " María López ";
-    document.querySelector("#whitelist-country").value = " Bolivia ";
-    document.querySelector("#whitelist-city").value = " Cochabamba ";
+    choose(document.querySelector("#whitelist-country"), "BO", window);
+    choose(document.querySelector("#whitelist-city"), "Cochabamba", window);
     document.querySelector("#whitelist-phone").value = " 7000 0000 ";
     document.querySelector("#whitelist-consent").checked = true;
     document.querySelector("#whitelist-form").dispatchEvent(new window.Event("submit", { cancelable: true }));
@@ -328,6 +335,66 @@ test("phone prefixes show localized countries and flags and combine only when a 
   }
   assert.equal(records.length, 2, "Invalid numbers never reach storage");
 });
+for (const lang of ["en", "es"])
+  test(`${lang}: country and city lists support manual entries and clear locations when the country changes`, async () => {
+    const { window, document } = parseHTML(renderPage(lang));
+    window.HTMLElement.prototype.focus = function () {};
+    const form = document.querySelector("#whitelist-form");
+    const country = document.querySelector("#whitelist-country");
+    const countryOther = document.querySelector("#whitelist-country-other");
+    const city = document.querySelector("#whitelist-city");
+    const cityOther = document.querySelector("#whitelist-city-other");
+    const records = [];
+    initWhitelist(document, async (_, options) => {
+      records.push(JSON.parse(options.body));
+      return Response.json({ ok: false }, { status: 503 });
+    });
+    const submit = async () => {
+      form.dispatchEvent(new window.Event("submit", { cancelable: true }));
+      await new Promise(resolve => setTimeout(resolve, 0));
+      return records.at(-1);
+    };
+    assert.ok(country.options.length > 200);
+    assert.equal(city.disabled, true);
+    assert.equal(cityOther.hidden, true);
+    document.querySelector("#whitelist-email").value = "location@example.com";
+    document.querySelector("#whitelist-consent").checked = true;
+    choose(country, "BO", window);
+    assert.equal(city.disabled, false);
+    for (const name of ["La Paz", "El Alto", "Cochabamba", "Santa Cruz de la Sierra", "Tarija", "Cobija"])
+      assert.ok([...city.options].some(option => option.value === name));
+    choose(city, "Cochabamba", window);
+    assert.equal((await submit()).city, "Cochabamba");
+    assert.equal(records.at(-1).country, "Bolivia");
+    choose(city, "__other", window);
+    assert.equal(cityOther.hidden, false);
+    cityOther.value = " Rurrenabaque ";
+    assert.equal((await submit()).city, "Rurrenabaque");
+    choose(country, "PE", window);
+    assert.equal(city.value, "");
+    assert.equal(cityOther.value, "");
+    assert.equal(cityOther.hidden, true);
+    assert.ok([...city.options].some(option => option.value === "Lima"));
+    assert.equal((await submit()).city, null);
+    choose(country, "__other", window);
+    assert.equal(countryOther.hidden, false);
+    assert.equal(cityOther.hidden, false);
+    countryOther.value = " País de prueba ";
+    cityOther.value = " Ciudad de prueba ";
+    const manual = await submit();
+    assert.equal(manual.country, "País de prueba");
+    assert.equal(manual.city, "Ciudad de prueba");
+    choose(country, "AC", window);
+    assert.equal(city.hidden, true, "Countries without city suggestions accept free text");
+    assert.equal(cityOther.hidden, false);
+    choose(country, "", window);
+    assert.equal(city.disabled, true);
+    assert.equal(countryOther.value, "");
+    assert.equal(cityOther.value, "");
+    const empty = await submit();
+    assert.equal(empty.country, null);
+    assert.equal(empty.city, null);
+  });
 test("header stays stable around the compact threshold and coalesces scroll events", () => {
   const { window, document } = parseHTML(renderPage("en"));
   const frames = [];

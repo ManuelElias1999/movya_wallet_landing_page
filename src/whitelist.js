@@ -20,6 +20,42 @@ export function initWhitelist(
   }
   phonePrefix.addEventListener("change", updatePhonePrefix);
   updatePhonePrefix();
+  const country = root.querySelector("#whitelist-country");
+  const countryOther = root.querySelector("#whitelist-country-other");
+  const city = root.querySelector("#whitelist-city");
+  const cityOther = root.querySelector("#whitelist-city-other");
+  const cities = JSON.parse(root.querySelector("#whitelist-locations").textContent).cities;
+  function option(value, text) {
+    const element = root.createElement("option");
+    element.value = value;
+    element.textContent = text;
+    return element;
+  }
+  function updateCityInput() {
+    const manual = !!country.value && (city.hidden || city.value === "__other");
+    cityOther.hidden = !manual;
+    cityOther.disabled = !manual;
+    if (!manual) cityOther.value = "";
+  }
+  function updateCountry() {
+    const code = country.value || "";
+    countryOther.hidden = code !== "__other";
+    countryOther.disabled = code !== "__other";
+    if (code !== "__other") countryOther.value = "";
+    const names = cities[code] || [];
+    const placeholder = option("", code ? copy.chooseCity : copy.chooseCountryFirst);
+    placeholder.selected = true;
+    city.replaceChildren(placeholder);
+    for (const name of [...names].sort((a, b) => a.localeCompare(b, root.documentElement.lang)))
+      city.append(option(name, name));
+    if (code && names.length) city.append(option("__other", copy.otherCity));
+    city.disabled = !code || !names.length;
+    city.hidden = !!code && !names.length;
+    cityOther.value = "";
+    city.removeAttribute("aria-invalid");
+    cityOther.removeAttribute("aria-invalid");
+    updateCityInput();
+  }
   const details = [
     ["name", 120],
     ["country", 100],
@@ -35,6 +71,7 @@ export function initWhitelist(
   const button = form.querySelector('button[type="submit"]');
   const label = button.querySelector("span");
   let submitting = false;
+  updateCountry();
   button.disabled = false;
   function report(text, field) {
     status.textContent = text;
@@ -52,6 +89,21 @@ export function initWhitelist(
       input.removeAttribute("aria-invalid");
       status.textContent = "";
     });
+  for (const input of [countryOther, cityOther])
+    input.addEventListener("input", () => {
+      input.removeAttribute("aria-invalid");
+      status.textContent = "";
+    });
+  country.addEventListener("change", () => {
+    updateCountry();
+    country.removeAttribute("aria-invalid");
+    status.textContent = "";
+  });
+  city.addEventListener("change", () => {
+    updateCityInput();
+    city.removeAttribute("aria-invalid");
+    status.textContent = "";
+  });
   consent.addEventListener("change", () => {
     consent.removeAttribute("aria-invalid");
     status.textContent = "";
@@ -68,8 +120,13 @@ export function initWhitelist(
       return report(copy.invalid, email);
     if (!consent.checked) return report(copy.consentError, consent);
     const profile = {};
-    for (const { key, max, input } of details) {
-      const value = input.value.trim();
+    for (const { key, max, input: field } of details) {
+      const input = key === "country" && !countryOther.disabled ? countryOther
+        : key === "city" && !cityOther.disabled ? cityOther : field;
+      const raw = key === "country" && countryOther.disabled
+        ? country.querySelector("option:checked")?.dataset.countryName || ""
+        : key === "city" && !country.value ? "" : input.value;
+      const value = raw.trim();
       if (value.length > max || /[\u0000-\u001f\u007f]/u.test(value))
         return report(copy.detailsError, input);
       profile[key] = value || null;
@@ -118,7 +175,10 @@ export function initWhitelist(
       success.hidden = false;
       success.focus({ preventScroll: true });
       email.value = "";
-      for (const { input } of details) input.value = "";
+      for (const { input } of details)
+        if (input.tagName !== "SELECT") input.value = "";
+      country.options[0].selected = true;
+      updateCountry();
     } catch {
       report(copy.error);
     } finally {

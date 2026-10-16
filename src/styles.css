@@ -5332,7 +5332,8 @@ img[src$="/movya-logo.png"] {
   font-weight: 800;
   line-height: 1.5;
 }
-.whitelist-field input {
+.whitelist-field input,
+.whitelist-field > select {
   display: block;
   width: 100%;
   min-width: 0;
@@ -5349,7 +5350,8 @@ img[src$="/movya-logo.png"] {
 .whitelist-field input::placeholder {
   color: #7890af;
 }
-.whitelist-field input:focus-visible {
+.whitelist-field input:focus-visible,
+.whitelist-field > select:focus-visible {
   border-color: var(--blue);
   outline: none;
   box-shadow: 0 0 0 3px #176bff14;
@@ -5357,6 +5359,31 @@ img[src$="/movya-logo.png"] {
 .whitelist-field input[aria-invalid="true"] {
   border-color: #c64a55;
   box-shadow: 0 0 0 3px #c64a550d;
+}
+.whitelist-field [hidden] {
+  display: none;
+}
+.whitelist-field > select {
+  cursor: pointer;
+  padding-right: 8px;
+}
+.whitelist-field > select:disabled {
+  cursor: default;
+  color: var(--muted);
+  background: #f1f5fb;
+}
+.whitelist-field > select:has(option[value=""]:checked) {
+  color: var(--muted);
+}
+.whitelist-field > select option {
+  color: var(--ink);
+}
+#whitelist-country-other,
+#whitelist-city-other {
+  margin-top: 10px;
+}
+.whitelist-field > select[hidden] + input {
+  margin-top: 0;
 }
 .required-star {
   color: #c62939;
