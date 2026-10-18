@@ -25,6 +25,9 @@
   "functions": {
     "api/whitelist.js": {
       "maxDuration": 15
+    },
+    "api/whitelist-count.js": {
+      "maxDuration": 15
     }
   }
 }

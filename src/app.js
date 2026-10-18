@@ -1,8 +1,10 @@
 import { parseDemoMessage } from "./demo.js";
 import { initWhitelist } from "./whitelist.js";
+import { initWhitelistCount } from "./whitelist-count.js";
 import { initMotion } from "./motion.js";
 
 initWhitelist();
+initWhitelistCount();
 initMotion();
 
 const nav = document.querySelector("#main-nav");

@@ -219,6 +219,8 @@ for (const lang of ["en", "es"])
     const success = document.querySelector("#whitelist-success");
     const scrolls = [];
     const frames = [];
+    let countRefreshes = 0;
+    document.addEventListener("whitelist:joined", () => countRefreshes++);
     window.requestAnimationFrame = callback => frames.push(callback);
     window.matchMedia = () => ({ matches: lang === "es" });
     document.querySelector(".whitelist-card").scrollIntoView = options => {
@@ -257,12 +259,14 @@ for (const lang of ["en", "es"])
     assert.equal(success.hidden, true);
     assert.equal(status.textContent, copy.error);
     assert.equal(frames.length, 0, "Failed submissions keep the form in place");
+    assert.equal(countRefreshes, 0);
     submit();
     fulfill(new Response(JSON.stringify({ ok: true }), { status: 200 }));
     await settle();
     assert.equal(success.hidden, false);
     assert.equal(form.hidden, true);
     assert.equal(email.value, "");
+    assert.equal(countRefreshes, 1, "Refresh the total only after a confirmed signup");
     assert.equal(frames.length, 1, "Wait for the confirmation layout before centering");
     frames.shift()();
     assert.deepEqual(scrolls, [{

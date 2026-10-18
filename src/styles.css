@@ -5481,3 +5481,27 @@ img[src$="/movya-logo.png"] {
     gap: 16px;
   }
 }
+
+/* Live whitelist total. */
+.whitelist-copy .whitelist-count {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 16px;
+  max-width: 100%;
+  border: 1px solid #c8dbfb;
+  border-radius: 16px;
+  background: #ffffffd9;
+  color: var(--blue-dark);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.whitelist-count[hidden] {
+  display: none;
+}
+.whitelist-count strong {
+  font-size: 20px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}

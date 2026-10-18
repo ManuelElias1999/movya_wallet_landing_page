@@ -22,6 +22,7 @@ for (const file of [
   "app.js",
   "demo.js",
   "whitelist.js",
+  "whitelist-count.js",
   "motion.js",
 ])
   await cp(path.join(root, "src", file), path.join(out, file));

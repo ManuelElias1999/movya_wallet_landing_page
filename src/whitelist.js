@@ -1,4 +1,4 @@
-/** Only the whitelist form makes requests. The product demo remains local. */
+/** Whitelist registration. The product demo remains local. */
 export function initWhitelist(
   root = document,
   send = (...args) => fetch(...args),
@@ -179,6 +179,7 @@ export function initWhitelist(
         if (input.tagName !== "SELECT") input.value = "";
       country.options[0].selected = true;
       updateCountry();
+      root.dispatchEvent(new root.defaultView.Event("whitelist:joined"));
       // Recenter after the tall form collapses into the shorter confirmation.
       const view = root.defaultView;
       const centerConfirmation = () => success.closest(".whitelist-card").scrollIntoView?.({

@@ -4,6 +4,8 @@ The page includes an English/Spanish signup form. Email is the only required con
 
 Country and city use linked native selectors. Changing the country clears the previous city. A visitor can choose “Other city” to enter an unlisted locality; “Other country” and countries without suggestions also allow free text. The city suggestions are stored locally in `src/cities.mjs` and embedded in each page, so selecting a location makes no external request. They are a subset of GeoNames cities15000 (up to 60 distinct names per country, selected by population), with Bolivia limited to its nine departmental capitals. The list is not exhaustive. GeoNames data is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); [source and download](https://download.geonames.org/export/dump/) attribution is also included with the embedded data.
 
+The public `GET /api/whitelist-count` endpoint returns only the exact subscriber total. It uses a server-side HEAD request, keeping subscriber records and credentials private. The bilingual count loads with the page and refreshes after a successful signup; unavailable counts stay hidden. It uses the same server variables and requires no additional database migration.
+
 ## 1. Prepare the database
 
 Use an existing Supabase project or a dedicated project for the landing. In the SQL editor, run:
