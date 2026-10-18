@@ -15,6 +15,7 @@ const paths = {
   up: '<path d="M7 17 17 7M7 7h10v10"/>',
   send: '<path d="m21 3-7 18-4-7-7-4 18-7ZM10 14 21 3"/>',
   receive: '<path d="M12 4v16m-6-6 6 6 6-6"/>',
+  transfer: '<path d="M4 7h16m-5-5 5 5-5 5M20 17H4m5-5-5 5 5 5"/>',
   check: '<path d="m5 12 4 4L19 6"/>',
   chat: '<path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-1 1v-9.5A8.5 8.5 0 0 1 11.5 3H13a8 8 0 0 1 8 8.5Z"/><path d="M7 9h10M7 13h6"/>',
   people:
@@ -149,16 +150,16 @@ ${brand(assets)}
 <div class="header-end"><div class="language-switch" role="group" aria-label="${t.language}"><a href="${route("en")}" lang="en" hreflang="en" aria-label="English" ${lang === "en" ? 'aria-current="page"' : ""}>EN</a><a href="${route("es")}" lang="es" hreflang="es" aria-label="Español" ${lang === "es" ? 'aria-current="page"' : ""}>ES</a></div><a class="button button-small button-blue header-cta" href="#whitelist">${t.join}${icon("arrow")}</a></div>
 <span class="header-progress" aria-hidden="true"></span></div></header>
 <main id="main">
-<section class="hero container" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="little-mark">✦</span>${t.eyebrow}</div>
+<section class="hero container" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="little-mark" aria-hidden="true">${icon("chat")}</span>${t.eyebrow}</div>
 <h1 id="hero-title">${t.hero[0]}<br><span>${t.hero[1]}</span></h1>
 <p class="hero-intro">${t.intro}</p>
 <div class="hero-actions"><a class="button button-blue" href="#demo">${t.primary}${icon("arrow")}</a><a class="button button-outline" href="#whitelist">${t.join}${icon("arrow")}</a></div>
 <p class="stage-label"><span class="status-dot"></span>${t.stage}</p>
 <div class="hero-tags">${t.heroTags.map((x) => `<span>${icon("check")}${x}</span>`).join("")}</div>
 </div>
-<div class="hero-visual"><div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div><span class="sparkle sparkle-one">✦</span><span class="sparkle sparkle-two">✧</span>
+<div class="hero-visual"><div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div><span class="sparkle sparkle-one" aria-hidden="true">${icon("send")}</span><span class="sparkle sparkle-two" aria-hidden="true">${icon("transfer")}</span>
 <div class="phone" role="img" aria-label="${escape(t.ui.note)}"><div class="phone-hardware"><span>9:41</span><span class="phone-island"></span><span>● ▰</span></div><div class="phone-app">
-<div class="app-header"><span class="user-avatar">A</span><div><strong>${t.ui.hello}</strong><small>${t.ui.welcome}</small></div><span class="app-icon">${icon("spark")}</span></div>
+<div class="app-header"><span class="user-avatar">A</span><div><strong>${t.ui.hello}</strong><small>${t.ui.welcome}</small></div><span class="app-icon">${icon("chat")}</span></div>
 <div class="balance-card"><div class="card-top"><span class="card-brand"><img src="${assets}movya-logo.png" width="24" height="24" alt="">Movya</span><span class="card-badge">${t.ui.demo}</span></div><small>${t.ui.total}</small><strong class="balance">$1,629.24<span>USD</span></strong><div class="card-bottom"><span>${t.ui.personal}</span><span>•••• 0428</span></div></div>
 <div class="quick-actions"><div><span>${icon("up")}</span>${t.ui.send}</div><div><span>${icon("receive")}</span>${t.ui.receive}</div><div><span>${icon("plus")}</span>USDC</div></div>
 <div class="phone-section-title">${t.ui.portfolio}<span>···</span></div><div class="phone-assets">${asset(assets, "USDC", "USD Coin", "1,500.00")}${asset(assets, "XLM", "Stellar", "500.00")}</div>

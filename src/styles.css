@@ -336,8 +336,15 @@ p {
   white-space: nowrap;
 }
 .little-mark {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
   font-size: 20px;
   letter-spacing: 0;
+}
+.little-mark .icon {
+  width: 1em;
+  height: 1em;
 }
 h1 {
   font-size: clamp(48px, 5.25vw, 70px);
@@ -436,7 +443,14 @@ h1 > span {
 }
 .sparkle {
   position: absolute;
+  display: inline-flex;
   color: var(--blue);
+  pointer-events: none;
+}
+.sparkle .icon {
+  width: 1em;
+  height: 1em;
+  stroke-width: 1.6;
 }
 .sparkle-one {
   left: 15px;
