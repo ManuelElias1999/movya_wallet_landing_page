@@ -6244,3 +6244,13 @@ html[data-theme="dark"] .phone-new + .floating-chat .mini-reply {
     border-radius: 11px;
   }
 }
+
+/* Keep the floating navigation legible in dark mode. */
+html[data-theme="dark"] .site-header .header-inner {
+  border-color: #29384d;
+  background: #111a29eb;
+  box-shadow: 0 10px 34px #02081780;
+}
+html[data-theme="dark"] .site-header.is-scrolled .header-inner {
+  background: #111a29f5;
+}
