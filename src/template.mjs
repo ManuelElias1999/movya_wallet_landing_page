@@ -28,6 +28,12 @@ const paths = {
   activity: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
   account:
     '<circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/>',
+  settings:
+    '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/>',
+  eye:
+    '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/>',
+  trend:
+    '<path d="m3 17 6-6 4 4 7-8"/><path d="M15 7h5v5"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
   refresh: '<path d="M20 8a8 8 0 1 0 0 8M20 3v5h-5"/>',
   globe:
@@ -158,12 +164,15 @@ ${brand(assets)}
 <div class="hero-tags">${t.heroTags.map((x) => `<span>${icon("check")}${x}</span>`).join("")}</div>
 </div>
 <div class="hero-visual"><div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div><span class="sparkle sparkle-one" aria-hidden="true">${icon("send")}</span><span class="sparkle sparkle-two" aria-hidden="true">${icon("transfer")}</span>
-<div class="phone" role="img" aria-label="${escape(t.ui.note)}"><div class="phone-hardware"><span>9:41</span><span class="phone-island"></span><span>● ▰</span></div><div class="phone-app">
-<div class="app-header"><span class="user-avatar">A</span><div><strong>${t.ui.hello}</strong><small>${t.ui.welcome}</small></div><span class="app-icon">${icon("chat")}</span></div>
-<div class="balance-card"><div class="card-top"><span class="card-brand"><img src="${assets}movya-logo.png" width="24" height="24" alt="">Movya</span><span class="card-badge">${t.ui.demo}</span></div><small>${t.ui.total}</small><strong class="balance">$1,629.24<span>USD</span></strong><div class="card-bottom"><span>${t.ui.personal}</span><span>•••• 0428</span></div></div>
-<div class="quick-actions"><div><span>${icon("up")}</span>${t.ui.send}</div><div><span>${icon("receive")}</span>${t.ui.receive}</div><div><span>${icon("plus")}</span>USDC</div></div>
-<div class="phone-section-title">${t.ui.portfolio}<span>···</span></div><div class="phone-assets">${asset(assets, "USDC", "USD Coin", "1,500.00")}${asset(assets, "XLM", "Stellar", "500.00")}</div>
-<div class="phone-nav"><span>${icon("home")}<small>${t.ui.home}</small></span><span>${icon("people")}<small>${t.ui.contacts}</small></span><span class="phone-movya"><img src="${assets}movya-logo.png" width="44" height="44" alt="Movya"></span><span>${icon("activity")}<small>${t.ui.activity.split(" ")[0]}</small></span><span>${icon("account")}<small>${t.ui.account}</small></span></div>
+<div class="phone phone-new" role="img" aria-label="${escape(t.ui.note)}"><div class="phone-hardware"><span>9:41</span><span class="phone-island"></span><span>● ▰</span></div><div class="phone-app dashboard-app">
+<div class="dashboard-app-header"><div class="dashboard-greeting"><strong>${t.ui.hello}</strong><small>Un mensaje, una transacción</small></div><div class="dashboard-header-actions"><span>${icon("refresh")}</span><span>${icon("settings")}</span></div></div>
+<div class="dashboard-balance-card"><div class="dashboard-card-top"><span class="dashboard-card-brand"><img src="${assets}movya-logo.png" width="24" height="24" alt="">Movya</span><span class="dashboard-status"><i></i>${lang === "es" ? "Activa" : "Active"}</span></div><small>${t.ui.total}</small><div class="dashboard-amount"><strong>$1,629.24</strong><span>${icon("eye")}</span></div><div class="dashboard-card-bottom"><span>${t.ui.personal}</span><span>•••• 0428</span></div></div>
+<div class="dashboard-actions"><div><span>${icon("up")}</span><small>${t.ui.send}</small></div><div><span>${icon("receive")}</span><small>${t.ui.receive}</small></div><div><span>${icon("transfer")}</span><small>Swap</small></div><div><span>${icon("plus")}</span><small>${lang === "es" ? "Agregar" : "Add"}</small></div></div>
+<div class="dashboard-section-title"><span>${t.ui.portfolio}<small>${lang === "es" ? "Tus activos en Stellar" : "Your Stellar assets"}</small></span><b>${lang === "es" ? "Ver todo" : "See all"}</b></div>
+<div class="dashboard-assets"><div class="dashboard-asset"><div><img src="${assets}token-usdc.png" width="25" height="25" alt=""><span><strong>USD Coin</strong><small>USDC</small></span></div><strong>1,500.00<small>USDC</small></strong></div><div class="dashboard-asset"><div><img src="${assets}token-xlm.png" width="25" height="25" alt=""><span><strong>Stellar</strong><small>XLM</small></span></div><strong>500.00<small>XLM</small></strong></div></div>
+<div class="dashboard-section-title dashboard-activity-title"><span>${t.ui.activity}<small>${lang === "es" ? "Tus últimos movimientos" : "Your latest movements"}</small></span><b>•••</b></div>
+<div class="dashboard-activity"><span>${icon("receive")}</span><div><strong>${lang === "es" ? "Recibido" : "Received"}</strong><small>${lang === "es" ? "Hoy" : "Today"} · USDC</small></div><strong>+20.00</strong></div>
+<div class="phone-nav dashboard-nav"><span>${icon("home")}<small>${t.ui.home}</small></span><span>${icon("activity")}<small>${t.ui.activity.split(" ")[0]}</small></span><span class="phone-movya"><img src="${assets}movya-logo.png" width="44" height="44" alt="Movya"><small>Movya</small></span><span>${icon("people")}<small>${t.ui.contacts}</small></span><span>${icon("trend")}<small>Invest</small></span></div>
 </div></div>
 <div class="floating-chat"><div class="float-identity">${mascot(assets, 44)}<div><strong>Movya</strong><small>${t.ui.assistant}</small></div><span class="ai-pill">${lang === "es" ? "IA" : "AI"}</span></div><div class="mini-user">${t.ui.prompt}</div><div class="mini-reply">${icon("shield")}<span>${t.ui.review}</span><span class="mini-check">${icon("check")}</span></div></div>
 </div></section>
