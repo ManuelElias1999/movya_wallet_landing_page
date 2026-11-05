@@ -7,6 +7,29 @@ initWhitelist();
 initWhitelistCount();
 initMotion();
 
+const themeToggle = document.querySelector(".theme-toggle");
+const themeColor = document.querySelector('meta[name="theme-color"]');
+
+function applyTheme(theme, persist = false) {
+  const dark = theme === "dark";
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  themeToggle.setAttribute("aria-pressed", String(dark));
+  const label = dark ? themeToggle.dataset.lightLabel : themeToggle.dataset.darkLabel;
+  themeToggle.setAttribute("aria-label", label);
+  themeToggle.setAttribute("title", label);
+  themeColor?.setAttribute("content", dark ? "#080D16" : "#176BFF");
+  if (persist) {
+    try {
+      localStorage.setItem("movya-theme", dark ? "dark" : "light");
+    } catch {}
+  }
+}
+
+applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+themeToggle.addEventListener("click", () => {
+  applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
+});
+
 const nav = document.querySelector("#main-nav");
 const menu = document.querySelector(".menu-toggle");
 function closeMenu() {

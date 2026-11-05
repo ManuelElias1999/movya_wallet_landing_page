@@ -34,6 +34,10 @@ const paths = {
     '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/>',
   trend:
     '<path d="m3 17 6-6 4 4 7-8"/><path d="M15 7h5v5"/>',
+  moon:
+    '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>',
+  sun:
+    '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
   refresh: '<path d="M20 8a8 8 0 1 0 0 8M20 3v5h-5"/>',
   globe:
@@ -136,7 +140,8 @@ export function renderPage(
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(t.meta.title)}</title><meta name="description" content="${escape(t.meta.description)}">
-<meta name="theme-color" content="#176BFF"><meta name="color-scheme" content="light">
+<meta name="theme-color" content="#176BFF"><meta name="color-scheme" content="light dark">
+<script>try{if(localStorage.getItem("movya-theme")==="dark")document.documentElement.dataset.theme="dark"}catch{}</script>
 <link rel="canonical" href="${canonical}"><link rel="alternate" hreflang="en" href="${new URL(route("en"), origin).href}"><link rel="alternate" hreflang="es" href="${new URL(route("es"), origin).href}"><link rel="alternate" hreflang="x-default" href="${new URL(route("en"), origin).href}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Movya Wallet"><meta property="og:title" content="${escape(t.meta.title)}"><meta property="og:description" content="${escape(t.meta.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${social}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${escape(t.footer.line)}"><meta property="og:locale" content="${lang === "es" ? "es_ES" : "en_US"}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(t.meta.title)}"><meta name="twitter:description" content="${escape(t.meta.description)}"><meta name="twitter:image" content="${social}">
 <link rel="icon" href="${assets}favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="${assets}apple-touch-icon.png">
@@ -153,7 +158,7 @@ export function renderPage(
 ${brand(assets)}
 <button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="${t.menu}" data-open-label="${t.menu}" data-close-label="${t.closeMenu}">${icon("menu")}</button>
 <nav class="main-nav" id="main-nav" aria-label="${lang === "es" ? "Principal" : "Main"}"><a href="#wallet">${t.nav[0]}</a><a href="#demo">${t.nav[1]}</a><a href="#faq">${t.nav[2]}</a><a class="nav-whitelist" href="#whitelist">${t.nav[3]}${icon("up")}</a></nav>
-<div class="header-end"><div class="language-switch" role="group" aria-label="${t.language}"><a href="${route("en")}" lang="en" hreflang="en" aria-label="English" ${lang === "en" ? 'aria-current="page"' : ""}>EN</a><a href="${route("es")}" lang="es" hreflang="es" aria-label="Español" ${lang === "es" ? 'aria-current="page"' : ""}>ES</a></div><a class="button button-small button-blue header-cta" href="#whitelist">${t.join}${icon("arrow")}</a></div>
+<div class="header-end"><button class="theme-toggle" type="button" aria-pressed="false" aria-label="${lang === "es" ? "Cambiar a modo oscuro" : "Switch to dark mode"}" data-dark-label="${lang === "es" ? "Cambiar a modo oscuro" : "Switch to dark mode"}" data-light-label="${lang === "es" ? "Cambiar a modo claro" : "Switch to light mode"}"><span class="theme-moon" aria-hidden="true">${icon("moon")}</span><span class="theme-sun" aria-hidden="true">${icon("sun")}</span></button><div class="language-switch" role="group" aria-label="${t.language}"><a href="${route("en")}" lang="en" hreflang="en" aria-label="English" ${lang === "en" ? 'aria-current="page"' : ""}>EN</a><a href="${route("es")}" lang="es" hreflang="es" aria-label="Español" ${lang === "es" ? 'aria-current="page"' : ""}>ES</a></div><a class="button button-small button-blue header-cta" href="#whitelist">${t.join}${icon("arrow")}</a></div>
 <span class="header-progress" aria-hidden="true"></span></div></header>
 <main id="main">
 <section class="hero container" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="little-mark" aria-hidden="true">${icon("chat")}</span>${t.eyebrow}</div>
