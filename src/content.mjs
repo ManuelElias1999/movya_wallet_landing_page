@@ -21,7 +21,7 @@ export const content = {
     stage: "In development on Stellar Testnet",
     heroTags: ["Made for everyone", "Always your confirmation"],
     ui: {
-      hello: "Hi, Alex",
+      hello: "Hi, Manu",
       welcome: "Welcome to your wallet",
       total: "Your demo balance",
       personal: "Personal account",
@@ -129,7 +129,7 @@ export const content = {
       receive:
         "In Movya, you can share your public Stellar address or QR code to receive. This preview does not generate a receiving address.",
       fallback:
-        "Try “Send 20 USDC to Ouali” or “Send 5 XLM to Alex”. You can also ask for your balance or how to receive.",
+        "Try “Send 20 USDC to Ouali” or “Send 5 XLM to Manu”. You can also ask for your balance or how to receive.",
       pending: "Review the payment below, then choose Confirm demo or Cancel.",
       limit:
         "For this demo, enter a positive amount up to 1,000,000 with at most 7 decimal places.",
@@ -282,7 +282,7 @@ export const content = {
     stage: "En desarrollo en Stellar Testnet",
     heroTags: ["Pensada para todos", "Siempre con tu confirmación"],
     ui: {
-      hello: "Hola, Alex",
+      hello: "Hola, Manu",
       welcome: "Bienvenido a tu wallet",
       total: "Tu saldo de ejemplo",
       personal: "Cuenta personal",
@@ -391,7 +391,7 @@ export const content = {
       receive:
         "En Movya puedes compartir tu dirección pública de Stellar o tu QR para recibir. Esta demo no genera una dirección para recibir fondos.",
       fallback:
-        "Prueba “Envía 20 USDC a Ouali” o “Envía 5 XLM a Alex”. También puedes consultar tu saldo o cómo recibir.",
+        "Prueba “Envía 20 USDC a Ouali” o “Envía 5 XLM a Manu”. También puedes consultar tu saldo o cómo recibir.",
       pending:
         "Revisa el envío y elige Confirmar demo o Cancelar para continuar.",
       limit:

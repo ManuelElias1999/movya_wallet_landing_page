@@ -6254,3 +6254,34 @@ html[data-theme="dark"] .site-header .header-inner {
 html[data-theme="dark"] .site-header.is-scrolled .header-inner {
   background: #111a29f5;
 }
+
+
+/* Dark theme contrast corrections */
+html[data-theme="dark"] .site-header .main-nav {
+  border-color: #29384d;
+  background: #0a111c;
+}
+html[data-theme="dark"] .site-header .main-nav a {
+  color: #a6b4c7;
+}
+html[data-theme="dark"] .site-header .main-nav a:hover,
+html[data-theme="dark"] .site-header .main-nav a.is-active {
+  color: #9ec5ff;
+  background: #172235;
+  box-shadow: 0 2px 8px #02081780;
+}
+html[data-theme="dark"] .dashboard-balance-card,
+html[data-theme="dark"] .dashboard-card-brand,
+html[data-theme="dark"] .dashboard-balance-card > small,
+html[data-theme="dark"] .dashboard-amount strong,
+html[data-theme="dark"] .dashboard-amount .icon,
+html[data-theme="dark"] .dashboard-card-bottom {
+  color: #fff;
+}
+html[data-theme="dark"] .dashboard-balance-card > small,
+html[data-theme="dark"] .dashboard-card-bottom {
+  color: #ffffffc2;
+}
+html[data-theme="dark"] .dashboard-actions .icon {
+  color: #fff;
+}
