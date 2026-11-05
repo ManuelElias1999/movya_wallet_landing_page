@@ -6285,3 +6285,33 @@ html[data-theme="dark"] .dashboard-card-bottom {
 html[data-theme="dark"] .dashboard-actions .icon {
   color: #fff;
 }
+
+
+/* Final dark-theme visibility pass */
+html[data-theme="dark"] .stellar-inner > img {
+  filter: brightness(0) invert(1);
+  opacity: 0.94;
+}
+html[data-theme="dark"] .whitelist-copy .whitelist-count {
+  color: #d9e2ee;
+  border-color: #294a78;
+  background: #172235;
+  box-shadow: 0 8px 22px #02081745;
+}
+html[data-theme="dark"] .whitelist-count strong,
+html[data-theme="dark"] .whitelist-count .icon {
+  color: #9ec5ff;
+}
+html[data-theme="dark"] .demo-notice {
+  color: #a6b4c7;
+  border-color: #29384d;
+  background: #111a29;
+}
+html[data-theme="dark"] .whitelist-consent,
+html[data-theme="dark"] .whitelist-hint,
+html[data-theme="dark"] .whitelist-privacy {
+  color: #aebbd0;
+}
+html[data-theme="dark"] .whitelist-privacy {
+  border-color: #29384d;
+}
